@@ -1,5 +1,3 @@
-/*
-
 module.exports = ({ env }) => ({
   // ...
   upload: {
@@ -17,5 +15,3 @@ module.exports = ({ env }) => ({
   },
   // ...
 });
-
-*/
