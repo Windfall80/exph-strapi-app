@@ -1,0 +1,88 @@
+<div class="container mt-5">
+  <div class="row gy-4 justify-content-around mb-5">
+    <div class="col-auto d-flex flex-column justify-content-center align-items-center">
+      <div class="step step-gold"><span>1</span></div>
+
+      <mat-card class="pb-5">
+        <mat-card-header>
+          <mat-card-title>Ofrece</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="my-2">Da de alta todos tus servicios en nuestra plataforma, para aparecer en nuestros catálogos.</p>
+        </mat-card-content>
+        <mat-card-actions class="py-2 px-3">
+          <button mat-flat-button color="accent" class="btn-round" routerLink="servicios">Mis servicios</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div class="col-auto d-flex flex-column justify-content-center align-items-center">
+      <div class="step step-gold"><span>2</span></div>
+
+      <mat-card class="pb-5">
+        <mat-card-header>
+          <mat-card-title>Envía Cotizaciones</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="my-2">Recibe solicitudes de cotizaciones de clientes potenciales.</p>
+          <div class="notes px-4 py-3" [class.disable]="!pending">
+            <div class="icon-cont">
+              <mat-icon svgIcon="cotizacion" [matBadge]="pending" *ngIf="pending"></mat-icon>
+              <mat-icon svgIcon="cotizacion-disable" *ngIf="!pending"></mat-icon>
+            </div>
+            Cotizaciones pendientes
+          </div>
+        </mat-card-content>
+        <mat-card-actions class="py-2 px-3">
+          <button mat-flat-button color="accent" class="btn-round"  routerLink="cotizaciones" [queryParams]="{tab: 'open'}">Ir al panel</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div class="col-auto d-flex flex-column justify-content-center align-items-center">
+      <div class="step step-gold"><span>3</span></div>
+
+      <mat-card class="pb-5">
+        <mat-card-header>
+          <mat-card-title>Contacta a tu cliente</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="my-2">Afina los detalles de la propuesta y cierra el trato.</p>
+          <div class="notes px-4 py-3" [class.disable]="!unread">
+            <div class="icon-cont">
+              <mat-icon svgIcon="mnsg" [matBadge]="unread" *ngIf="unread"></mat-icon>
+              <mat-icon svgIcon="mnsg-disable" *ngIf="!unread"></mat-icon>
+            </div>
+            Conversaciones sin leer
+          </div>
+        </mat-card-content>
+        <mat-card-actions class="py-2 px-3">
+          <button mat-flat-button color="accent" class="btn-round"  routerLink="cotizaciones" [queryParams]="{tab: 'open'}">Ir al panel</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div class="col-auto d-flex flex-column justify-content-center align-items-center">
+      <div class="step"><span>4</span></div>
+
+      <mat-card class="pb-5">
+        <mat-card-header>
+          <mat-card-title>Crece</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="my-2">Consulta el feedback de tus clientes y encuentra áreas de oportunidad a mejorar.</p>
+          <div class="notes px-4 py-3" [class.disable]="!rated">
+            <div class="icon-cont">
+              <mat-icon svgIcon="star" [matBadge]="rated" *ngIf="rated"></mat-icon>
+              <mat-icon svgIcon="star-disable" *ngIf="!rated"></mat-icon>
+            </div>
+            Cotizaciones calificadas
+          </div>
+        </mat-card-content>
+        <mat-card-actions class="py-2 px-3">
+          <button mat-flat-button color="accent" class="btn-round" routerLink="cotizaciones" [queryParams]="{tab: 'finalized'}">Ir al panel</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

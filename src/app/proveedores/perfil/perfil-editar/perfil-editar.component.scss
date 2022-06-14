@@ -1,0 +1,74 @@
+/*.container{
+  @media (min-width: 992px){ max-width: calc(840px + var(--bs-gutter-x,.75rem)*2); }
+}*/
+
+.edit-form{
+  .form-group{
+    &:not(.text-center){
+      label{
+        margin-left: 0.5em;
+        margin-right: -1.6em;
+      }
+    }
+    label{
+      margin-bottom: 0;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 15px;
+      /* gris-muy-oscuro */
+      color: var(--app-gris-muy-oscuro);
+
+      span.input-req{
+        margin-left: 0.3em;
+        color: var(--app-rojo);
+      }
+
+      mat-icon.input-info{
+        margin-left: 0.3em;
+        width: auto;
+        height: auto;
+        font-size: 15px;
+        line-height: 1em;
+        vertical-align: middle;
+        color: var(--app-cyan);
+      }
+    }
+    .mat-form-field{
+      width: 100%;
+    }
+
+    &>div>.mat-error{
+      margin-top: 0.6666666667em;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 9px;
+      color: #f44336;
+    }
+  }
+
+  .btn-row{
+    button{
+      width: 130px;
+    }
+  }
+}
+
+app-file-field.profile-picture{
+  &::ng-deep{
+    .preview{
+      width: 145px!important;
+      min-width: 145px!important;
+      height: 145px!important;
+    }
+    .field{
+      @media(min-width: 1200px){width: 240px;}
+      width: -webkit-fill-available;
+    }
+    .status.order-last{
+      margin-bottom: 20px;
+    }
+  }
+}

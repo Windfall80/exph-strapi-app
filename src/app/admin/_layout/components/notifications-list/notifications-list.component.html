@@ -1,0 +1,28 @@
+<mat-nav-list class="notification-list" *ngIf="_notifications.length">
+  <mat-divider></mat-divider>
+  <ng-container *ngFor="let n of _notifications">
+    <!-- list-item -->
+    <a mat-list-item (click)="onClick($event, n)">
+      <div mat-line class="notification-msg">
+        <span class="notification-status" [class.unread]="!n.read"></span>
+        <p [innerHtml]="n.message"></p>
+      </div>
+
+      <div class="list-item-float">
+        <span class="date">{{ n.created_at | date:'dd/MM/yyyy' }}</span>
+      </div>
+    </a>
+    <!-- /list-item -->
+    <mat-divider></mat-divider>
+  </ng-container>
+</mat-nav-list>
+<ng-container *ngIf="!_notifications.length">
+  <span class="no-notifications pt-3">
+    No hay notificaciones.
+  </span>
+</ng-container>
+<div class="pt-2 d-flex justify-content-end">
+  <a mat-button class="btn-xs ps-2 pe-0 mx-1 view-all" routerLink="/empresas/general">Ver todas <mat-icon color="primary">chevron_right</mat-icon></a>
+</div>
+
+

@@ -1,0 +1,52 @@
+<header class="app-header-shadow">
+  <div class="logo-cont">
+    <a href="#">
+      <img class="logo" src="assets/logo.png">
+    </a>
+  </div>
+  <mat-toolbar>
+    <mat-toolbar-row class="tbr tbr-primary">
+      <!-- nav normal -->
+      <ul class="nav justify-content-end d-none d-md-flex">
+        <li class="nav-item">
+          <button class="nav-link btn-round" mat-button routerLink="/registro-proveedor">Proveedores</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link btn-round" mat-button routerLink="/registro-empresa">Hoteles</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link btn-round" mat-button routerLink="/registro-empresa">Restaurantes</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link btn-round btn-login" mat-raised-button color="accent" routerLink="/login">Login</button>
+        </li>
+      </ul>
+      <!-- nav colapsado -->
+      <ul class="nav justify-content-end d-md-none">
+        <li class="nav-item">
+          <button mat-icon-button [matMenuTriggerFor]="menu" color="accent">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>local_shipping</mat-icon>
+              <span>Proveedores</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>business</mat-icon>
+              <span>Hoteles</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>storefront</mat-icon>
+              <span>Restaurantes</span>
+            </button>
+            <button mat-menu-item routerLink="/login">
+              <mat-icon>login</mat-icon>
+              <span>Login</span>
+            </button>
+          </mat-menu>
+        </li>
+      </ul>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</header>

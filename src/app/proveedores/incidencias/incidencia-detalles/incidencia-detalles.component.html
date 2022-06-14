@@ -1,0 +1,64 @@
+<div class="container pt-5 px-md-5">
+  <!-- title bar -->
+  <div class="row">
+    <div class="col page-title">
+      <a class="btn-return" routerLink="..">
+        <mat-icon>arrow_back_ios</mat-icon>
+        Inicidencias
+      </a>
+    </div>
+    <div class="col page-actions"></div>
+  </div>
+
+  <!-- main -->
+  <div class="row pt-3 gx-5 gy-3" *ngIf="issue">
+    <div class="col-lg-7">
+      <!-- card-emresa -->
+      <mat-card class="card-empresa">
+        <mat-card-header>
+          <mat-card-title><img mat-card-avatar>Incidencia</mat-card-title>
+          <span class="empresa-id">ID:{{ issue.id }}</span>
+          <div>
+            <span class="pill pill-lg pill-{{ issue.status?.class }} mx-auto">{{ issue.status?.name }}</span>
+          </div>
+        </mat-card-header>
+      </mat-card>
+
+      <!-- card-info -->
+      <mat-card class="card-info mt-3">
+        <mat-card-content>
+          <dl class="row list-info">
+            <dt class="col-auto">Problema:</dt>
+            <dd class="col-auto name">{{ issue.type?.name }}</dd>
+            <div class="w-100"></div>
+
+            <dt class="col-auto">Fecha:</dt>
+            <dd class="col-auto">{{ issue.created_at | date:'dd/MM/yyyy' }}</dd>
+            <div class="w-100"></div>
+
+            <dt class="col-auto">Usuario que reporto:</dt>
+            <dd class="col-auto">{{ issue.user?.firstname+' '+issue.user?.lastname }}</dd>
+            <div class="w-100"></div>
+          </dl>
+          <mat-divider></mat-divider>
+          <div class="details pt-4">
+            <h2>Detalles</h2>
+            <p>{{issue.details}}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- col-right -->
+    <div class="col-lg-5">
+      <!-- card-chat -->
+      <app-chat-card
+        [id]="issue.id"
+        [type]="'issue'"
+        [room]="'incidencia_'+ issue.id"
+        [titleName]="'Soporte'"
+        [canChat]="canChat()"
+      ></app-chat-card>
+    </div>
+  </div>
+</div>

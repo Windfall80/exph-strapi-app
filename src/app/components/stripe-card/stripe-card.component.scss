@@ -1,0 +1,104 @@
+.tarjetas {
+  .element {
+    max-width:400px;
+    margin: 20px auto;
+
+    .card {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      margin: 0 auto;
+      max-width: 90%;
+      box-shadow: 0px 5px 5px rgb(64 148 171 / 24%);
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+
+      .card-info{
+        text-align: start;
+        font-family: Montserrat;
+        font-style: normal;
+        color: #5A6A6F;
+        h5{
+          font-weight: bold;
+          font-size: 18px;
+          line-height: 22px;
+          margin-bottom: -5px!important;
+        }
+        span{
+          font-weight: 500;
+          font-size: 11px;
+          line-height: 13px;
+        }
+      }
+
+      &.selectCard {
+        background-color: #EBC100;
+        .card-info{
+          color: #FFF;
+        }
+      }
+    }
+    .action {
+      width: 100%;
+      max-width: 10%;
+      float: left;
+      background-color: red;
+    }
+  }
+  .delete_card {
+    /*text-align: left;
+    color: rgb(199, 28, 28);*/
+  }
+
+}
+
+.agregarTarjeta {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.form-group{
+  text-align: left;
+  &:not(.text-center){
+    label{
+      margin-left: 0.5em;
+      margin-right: -1.6em;
+    }
+  }
+  label{
+    margin-bottom: 0;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    /* gris-muy-oscuro */
+    color: var(--app-gris-muy-oscuro);
+
+    span.input-req{
+      margin-left: 0.3em;
+      color: var(--app-rojo);
+    }
+
+    mat-icon.input-info{
+      margin-left: 0.3em;
+      width: auto;
+      height: auto;
+      font-size: 15px;
+      line-height: 1em;
+      vertical-align: middle;
+      color: var(--app-cyan);
+    }
+  }
+
+  mat-form-field.mat-form-field {
+    font-size: 14px;
+  }
+
+  .mat-form-field{
+    width: 100%;
+  }
+}
+

@@ -1,0 +1,123 @@
+<div class="container mt-5">
+  <mat-card id="card-registro" class="app-modal-shadow p-0">
+    <mat-card-title class="px-c py-ct">
+      <h1>Cotizador</h1>
+      <p>Te ayudamos a obtener las mejores ofertas a tus requerimientos de forma rápida y automatizada</p>
+    </mat-card-title>
+
+    <mat-card-content class="px-5">
+      <form #form [formGroup]="quotationForm" class="cotizacion-form px-lg-5" (ngSubmit)="onSubmit()">
+        <div class="row gx-5 py-3">
+          <div class="form-group col-md-8">
+            <label for="name" class="form-label">Nombre de referencia para tu cotización<span class="input-req">*</span></label>
+            <mat-form-field appearance="outline">
+              <input matInput id="name" formControlName="name" placeholder="Nombre">
+                <mat-error *ngIf="quotationForm.get('name')?.hasError('required')">Ingrese un nombre de referencia para su cotizacion.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="qty" class="form-label">Cantidad<span class="input-req">*</span></label>
+            <mat-form-field appearance="outline">
+              <input matInput type="number" id="qty" formControlName="qty" placeholder="00">
+                <mat-error *ngIf="quotationForm.get('qty')?.hasError('required')">Ingrese cantidad.</mat-error>
+                <mat-error *ngIf="quotationForm.get('qty')?.hasError('min')">Minimo una unidad.</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-divider inset></mat-divider>
+
+        <section [formGroup]="supplier_criteria">
+          <div class="row py-4">
+            <div class="form-group col">
+              <label class="form-label">Área principal<span class="input-req">*</span></label>
+              <div class="row">
+                <div class="col-auto">
+                  <mat-form-field appearance="outline">
+                    <mat-select id="main_category" formControlName="main_category" placeholder="Categoría principal" (selectionChange)="categoryChange($event)" disableOptionCentering>
+                      <mat-option *ngFor="let op of categories" [value]="op.id">{{op.name}}</mat-option>
+                    </mat-select>
+                      <mat-error *ngIf="supplier_criteria.get('main_category')?.hasError('required')">Selecciona una categoria.</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-auto">
+                  <mat-form-field appearance="outline">
+                    <mat-select id="categories" formControlName="categories" placeholder="Categorías secundarias" multiple disableOptionCentering>
+                      <mat-option *ngFor="let op of sub_categories" [value]="op.id">{{op.name}}</mat-option>
+                    </mat-select>
+                      <mat-error *ngIf="supplier_criteria.get('categories')?.hasError('required')">Selecciona al menos una sub-categoria.</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <mat-divider inset></mat-divider>
+
+          <div class="row gx-5 py-4">
+            <div class="form-group col-md-5">
+              <label class="form-label">Métodos de pago</label>
+              <mat-chip-list class="payment-options" formControlName="payment_methods" selectable multiple>
+                <mat-chip #c="matChip" *ngFor="let op of payment_methods" [value]="op.id" (click)="toggleSelection(c)">{{ op.name }}</mat-chip>
+              </mat-chip-list>
+              <div *ngIf="supplier_criteria.get('payment_methods')?.touched">
+                <mat-error *ngIf="supplier_criteria.get('payment_methods')?.hasError('required')">Seleccione al menos un método de pago.</mat-error>
+              </div>
+            </div>
+            <div class="form-group col-md-7">
+              <label class="form-label">Plazos de pago</label>
+              <mat-chip-list class="payment-options" formControlName="payment_terms" selectable multiple>
+                <mat-chip #c="matChip" *ngFor="let op of payment_terms" [value]="op.id" (click)="toggleSelection(c)">{{ op.name }}</mat-chip>
+              </mat-chip-list>
+              <div *ngIf="supplier_criteria.get('payment_terms')?.touched">
+                <mat-error *ngIf="supplier_criteria.get('payment_terms')?.hasError('required')">Seleccione al menos un plazo de pago.</mat-error>
+              </div>
+            </div>
+          </div>
+
+          <mat-divider inset></mat-divider>
+        </section>
+
+        <div class="row py-3">
+          <div class="form-group col">
+            <label for="details" class="form-label">Añade detalles para nuestros proveedores<span class="input-req">*</span></label>
+            <mat-form-field appearance="outline">
+              <textarea matInput id="details" formControlName="details" rows="6" placeholder="Escribe aquí tus especificaciones"></textarea>
+                <mat-error *ngIf="quotationForm.get('details')?.hasError('required')">Ingrese especificaciones.</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row py-3 justify-content-center">
+          <div class="form-group col-auto">
+            <app-file-field
+              [form]="quotationForm"
+              field="file"
+              size="sm"
+              placeholder="Adjuntar un documento"
+              hint="PDF o XLS"
+              accept="application/pdf, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+              direction="row"
+              itemAlign="start"
+              [showStatus]="true"
+              statusPosition="after"
+            ></app-file-field>
+          </div>
+        </div>
+
+        <div class="checks-seccion text-center">
+          <p><mat-checkbox formControlName="open">Acepto recibir cotizaciones del proveedor seleccionado.</mat-checkbox></p>
+        </div>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions class="pb-5">
+      <div class="row justify-content-center btn-row">
+        <div class="col-auto">
+          <button mat-flat-button color='accent' class="btn-round" (click)="onSubmit()" [disabled]="wait">Enviar</button>
+        </div>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>
+

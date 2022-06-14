@@ -1,0 +1,61 @@
+<div class="container-sidebar" [formGroup]="filterForm">
+  <div class="search-row">
+    <mat-form-field appearance="outline" class="search-field">
+      <span matPrefix (click)="$event.preventDefault()">
+        <button mat-icon-button color="primary">
+          <mat-icon>search</mat-icon>
+        </button>
+      </span>
+      <input matInput placeholder="Buscar" formControlName="_q">
+    </mat-form-field>
+  </div>
+
+  <!-- favoritos -->
+  <div class="fav-row">
+    <mat-checkbox color="primary" class="example-margin" formControlName="_favs">
+      Ver  solo favoritos
+    </mat-checkbox>
+  </div>
+  <mat-divider></mat-divider>
+
+  <!-- categorias -->
+  <div class="cat-row">
+    <h4 class="row-title">Categorías</h4>
+    <mat-selection-list class="categories-list" formControlName="categories" (selectionChange)="categoryChangue()">
+      <mat-expansion-panel class="mat-elevation-z" *ngFor="let op of categories | keyvalue" [disabled]="!op.key.childrens?.length">
+        <mat-expansion-panel-header>
+          <div (click)="$event.stopPropagation()">
+            <mat-list-option [value]="op.key.id" checkboxPosition="before">
+              {{op.key.name}}
+            </mat-list-option>
+          </div>
+        </mat-expansion-panel-header>
+        <div class="sub-categories">
+          <mat-list-option *ngFor="let opc of op.key.childrens" [value]="opc.id" checkboxPosition="before">
+            {{opc.name}}
+          </mat-list-option>
+        </div>
+      </mat-expansion-panel>
+
+    </mat-selection-list>
+  </div>
+  <mat-divider></mat-divider>
+
+  <!-- met-pago -->
+  <div class="pm-row">
+    <h4 class="row-title">Métodos de pago</h4>
+    <mat-chip-list class="payment-options" formControlName="payment_methods" selectable multiple>
+      <mat-chip #c="matChip" *ngFor="let op of payment_methods | keyvalue" [value]="op.key.id" (click)="toggleSelection(c)">{{op.key.name}}</mat-chip>
+    </mat-chip-list>
+  </div>
+  <mat-divider></mat-divider>
+
+  <!-- met-plazo -->
+  <div class="pm-row">
+    <h4 class="row-title">Plazos de pago</h4>
+    <mat-chip-list class="payment-options" formControlName="payment_terms" selectable multiple>
+      <mat-chip #c="matChip" *ngFor="let op of payment_terms | keyvalue" [value]="op.key.id" (click)="toggleSelection(c)">{{op.key.name}}</mat-chip>
+    </mat-chip-list>
+  </div>
+  <mat-divider></mat-divider>
+</div>

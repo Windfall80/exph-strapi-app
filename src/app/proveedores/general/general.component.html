@@ -1,0 +1,121 @@
+<div class="container-fluid pt-5 px-md-5">
+  <div class="row g-4">
+    <div class="col-xl-6">
+      <div class="row g-4">
+        <div class="col-md-12">
+          <mat-card class="cotizaciones-card app-modal-shadow pb-4">
+            <mat-card-title>
+              Cotizaciones
+              <div class="card-tools">
+                <a mat-raised-button color="accent" class="btn-round btn-xs" routerLink="/proveedores/cotizaciones">Ver Todas</a>
+              </div>
+            </mat-card-title>
+            <mat-card-content>
+              <mat-nav-list>
+                <mat-divider></mat-divider>
+                <ng-container *ngFor="let q of quotations">
+                  <!-- list-item -->
+                  <a mat-list-item routerLink="/proveedores/cotizaciones/{{q.id}}">
+                    <div class="proveedor-logo" mat-list-icon>
+                      <app-profile-picture [profile_picture]="q.company?.profile_picture"></app-profile-picture>
+                    </div>
+
+                    <div mat-line class="proveedor-nombre">{{ q.company?.name }}</div>
+                    <div mat-line class="servicio-nombre">{{ q.service?.name || q.group?.name  }}</div>
+
+                    <div class="list-item-end">
+                      <span class="date">{{ q.created_at | date:'dd/MM/yyyy' }}</span>
+                      <!--<span class="user">{{ q.user?.firstname + " " + q.user?.lastname }}</span>-->
+                      <div class="list-item-utils">
+                        <!-- pill-status -->
+                        <span class="pill pill-{{q.status?.class}}">{{ q.status?.name }}</span>
+                        <!-- /pill-status -->
+
+                        <!-- icon-status -->
+                        <ng-container [ngSwitch]="q.status?.id">
+                          <mat-icon svgIcon="cotizacion-pending" *jrSwitchCases="[1,2,3]"></mat-icon>
+                          <mat-icon svgIcon="cotizacion-active" *jrSwitchCases="[5,7]"></mat-icon>
+                          <mat-icon svgIcon="cotizacion-reject" *jrSwitchCases="[4,6]"></mat-icon>
+                          <mat-icon svgIcon="cotizacion" *ngSwitchDefault></mat-icon>
+                        </ng-container>
+                        <!-- /icon-status -->
+
+                        <!-- icon-mnsg -->
+                        <ng-container [ngSwitch]="q.status?.id">
+                          <mat-icon svgIcon="mnsg" *jrSwitchCases="[3,5]" [matBadge]="0" matBadgeSize="small" [matBadgeHidden]="true"></mat-icon>
+                          <mat-icon svgIcon="mnsg-disable" *ngSwitchDefault></mat-icon>
+                        </ng-container>
+                        <!-- /icon-mnsg -->
+                      </div>
+                    </div>
+                  </a>
+                  <mat-divider></mat-divider>
+                  <!-- /list-item -->
+                </ng-container>
+              </mat-nav-list>
+
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-12">
+          <mat-card class="ofertas-card app-modal-shadow pb-4">
+            <mat-card-title>
+              Ofertas Relámpago
+              <div class="card-tools">
+                <a mat-raised-button color="accent" class="btn-round btn-xs" routerLink="/proveedores/ofertas-relampago">Ver Todas</a>
+              </div>
+            </mat-card-title>
+            <mat-card-content>
+              <mat-nav-list>
+                <mat-divider></mat-divider>
+                <ng-container *ngFor="let r of requests">
+                  <!-- list-item -->
+                  <a mat-list-item routerLink="/proveedores/ofertas-relampago/{{r.id}}">
+                    <div class="proveedor-logo" mat-list-icon>
+                      <app-profile-picture [profile_picture]="r.company?.profile_picture"></app-profile-picture>
+                    </div>
+
+                    <div mat-line class="proveedor-nombre">{{ r.company?.name }}</div>
+                    <div mat-line class="servicio-nombre">{{ r.offer?.name }}</div>
+
+                    <div class="list-item-end">
+                      <span class="date">{{ r.created_at | date:'dd/MM/yyyy' }}</span>
+                      <span class="user">{{ r.user?.firstname + " " + r.user?.lastname }}</span>
+                      <div class="list-item-utils">
+                        <!-- pill-status -->
+                        <span class="pill pill-{{r.status?.class}}">{{ r.status?.name }}</span>
+                        <!-- /pill-status -->
+
+                        <!-- icon-status -->
+                        <ng-container [ngSwitch]="r.status?.id">
+                          <mat-icon svgIcon="cotizacion-pending" *jrSwitchCases="[1,2,3]"></mat-icon>
+                          <mat-icon svgIcon="cotizacion-active" *jrSwitchCases="[5,7]"></mat-icon>
+                          <mat-icon svgIcon="cotizacion-reject" *jrSwitchCases="[4,6]"></mat-icon>
+                          <mat-icon svgIcon="cotizacion" *ngSwitchDefault></mat-icon>
+                        </ng-container>
+                        <!-- /icon-status -->
+
+                        <!-- icon-mnsg -->
+                        <ng-container [ngSwitch]="r.status?.id">
+                          <mat-icon svgIcon="mnsg" *jrSwitchCases="[3,5]" [matBadge]="0" matBadgeSize="small" [matBadgeHidden]="true"></mat-icon>
+                          <mat-icon svgIcon="mnsg-disable" *ngSwitchDefault></mat-icon>
+                        </ng-container>
+                        <!-- /icon-mnsg -->
+                      </div>
+                    </div>
+                  </a>
+                  <mat-divider></mat-divider>
+                  <!-- /list-item -->
+                </ng-container>
+              </mat-nav-list>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6">
+      <app-notifications-full></app-notifications-full>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,122 @@
+.back-link{
+  mat-icon{
+    color: var(--app-amarillo-claro);
+  }
+}
+
+.breadcrumbs{
+  margin-bottom: 0.5em;
+  /* breadcrumbs */
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  /* cyan */
+  color: #00AAD3;
+}
+
+mat-card{
+  /* modal-shadow */
+  box-shadow: 0px 5px 5px rgba(64, 148, 171, 0.24)!important;
+  border-radius: 17px;
+
+  .image-cont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img{
+      width: 270px;
+      max-height: 280px;
+    }
+  }
+
+  .detalles-cont{
+    .actions{
+      text-align: right;
+
+      a{
+        /* proveedor-link */
+        cursor: pointer;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 13px;
+        line-height: 16px;
+        /* gris-muy-oscuro */
+        color: #5A6A6F;
+      }
+
+      .fav-btn:not(.isfav){
+        mat-icon{
+          color: #C4C4C4!important;
+        }
+      }
+    }
+
+
+
+    .titulo{
+      margin-bottom: 0.5em;
+      /* titulos-cajas */
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 22px;
+      /* azul-marino */
+      color: #062EBD;
+    }
+
+    .marca{
+      margin-bottom: 0.5em;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 15px;
+      /* amarillo-claro */
+      color: #DFBF03;
+    }
+
+    .descripcion-larga{
+      h4{
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 17px;
+
+        /* gris-muy-oscuro */
+        color: #5A6A6F;
+      }
+
+      p{
+        /* parrafos-cajas */
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 15px;
+
+        /* dark-gray */
+        color: #999D9E;
+      }
+    }
+
+    .pm-row{
+      h4.row-title{
+        margin-bottom: 0.75em;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 11px;
+        line-height: 13px;
+        /* gris-muy-oscuro */
+        color: #5A6A6F;
+      }
+    }
+
+  }
+}

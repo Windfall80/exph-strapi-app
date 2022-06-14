@@ -1,0 +1,49 @@
+<div class="container-sidebar">
+  <div class="section-user">
+    <a class="user-btn" mat-button routerLink="/proveedores/perfil" routerLinkActive="active">
+      <div class="user-btn-cont">
+        <app-user-image [image]="currentUser?.supplier?.profile_picture"></app-user-image>
+        <span class="user-name text-right">{{ currentUser?.username || '-' }}</span><mat-icon aria-hidden="false">chevron_right</mat-icon>
+      </div>
+    </a>
+  </div>
+
+  <mat-nav-list>
+    <!--<a mat-list-item routerLink="/proveedores" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><span>Inicio</span><mat-icon class="chevron-right">chevron_right</mat-icon></a>-->
+    <a mat-list-item routerLink="/proveedores/general" routerLinkActive="active">
+      <span [matBadge]="0" [matBadgeHidden]="true">General</span>
+      <mat-icon class="chevron-right">chevron_right</mat-icon>
+    </a>
+    <a mat-list-item routerLink="/proveedores/cotizaciones" routerLinkActive="active">
+      <span>Cotizaciones</span>
+      <mat-icon class="chevron-right">chevron_right</mat-icon>
+    </a>
+    <a mat-list-item routerLink="/proveedores/ofertas-relampago" routerLinkActive="active">
+      <span>Ofertas Relámpago</span>
+      <mat-icon class="chevron-right">chevron_right</mat-icon>
+    </a>
+    <a mat-list-item routerLink="/proveedores/servicios" routerLinkActive="active">
+      <span>Mis Servicios</span>
+      <mat-icon class="chevron-right">chevron_right</mat-icon>
+    </a>
+    <a mat-list-item routerLink="/proveedores/ofertas" routerLinkActive="active">
+      <span>Mis Ofertas</span>
+      <mat-icon class="chevron-right">chevron_right</mat-icon>
+    </a>
+    <a mat-list-item routerLink="/proveedores/puntos" routerLinkActive="active">
+      <span>Puntos Hive</span>
+      <mat-icon class="chevron-right">chevron_right</mat-icon>
+    </a>
+    <a mat-list-item routerLink="/proveedores/usuarios" routerLinkActive="active" *ngIf="currentUser?.role?.type == 'administrator'">
+      <span>Usuarios</span>
+      <mat-icon class="chevron-right">chevron_right</mat-icon>
+    </a>
+    <a mat-list-item routerLink="/proveedores/incidencias" routerLinkActive="active">
+      <span [matBadge]="0" [matBadgeHidden]="true">Incidencias</span>
+      <mat-icon class="chevron-right">chevron_right</mat-icon>
+    </a>
+  </mat-nav-list>
+
+  <div class="flex-spacer"></div>
+  <a mat-button class="logout-btn" (click)="logout()">Cerrar sesión</a>
+</div>

@@ -1,0 +1,84 @@
+<header class="app-header-shadow">
+  <div class="logo-cont">
+    <a routerLink="/proveedores">
+      <img class="logo" src="assets/logo.png">
+    </a>
+  </div>
+  <mat-toolbar>
+    <mat-toolbar-row class="tbr tbr-primary">
+      <div class="flex-spacer"></div>
+
+      <form class="search-form d-flex">
+        <input class="form-control" type="search" placeholder="Buscar" aria-label="Search">
+        <button class="btn" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+
+      <div class="flex-spacer d-none d-xxl-block"></div>
+      <div>
+        <!-- notificaciones -->
+        <button class="notifications-btn" mat-button [matMenuTriggerFor]="menuNotif">
+          <mat-icon [matBadge]="_unread" [matBadgeHidden]="!_unread" matBadgePosition="before">notifications</mat-icon>
+        </button>
+        <mat-menu #menuNotif="matMenu" class="notifications-panel" xPosition="after">
+          <app-notifications-list></app-notifications-list>
+        </mat-menu>
+        <!-- usuario -->
+        <button class="user-btn" mat-button [matMenuTriggerFor]="menuUser">
+          <div class="user-btn-cont">
+            <app-user-image class="me-2" [image]="currentUser?.supplier?.profile_picture"></app-user-image>
+            <span class="d-none d-xxl-block">{{ currentUser?.username || '-' }}</span>
+            <mat-icon aria-hidden="false">expand_more</mat-icon>
+          </div>
+        </button>
+        <mat-menu #menuUser="matMenu" xPosition="before">
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Cerrar sesión</span>
+          </button>
+        </mat-menu>
+      </div>
+
+
+    </mat-toolbar-row>
+    <mat-toolbar-row class="tbr tbr-secondary">
+      <nav class="navbar navbar-expand-md navbar-light">
+        <div class="container-fluid">
+          <button mat-icon-button (click)="snav.toggle()" [hidden]="sidebar == 'none'"><mat-icon>menu</mat-icon></button>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-none d-sm-block d-md-none">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+            </div>
+
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" tabindex="-1" routerLink="/proveedores">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" tabindex="-1" routerLink="/proveedores/cotizaciones">Mis Solicitudes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" tabindex="-1" routerLink="/proveedores/ofertas-relampago">Ofertas Relámpago</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" tabindex="-1">Ayuda</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</header>

@@ -1,0 +1,277 @@
+<div class="container pt-5 px-md-5">
+  <!-- title bar -->
+  <div class="row">
+    <div class="col page-title">
+      <a class="btn-return" routerLink="..">
+        <mat-icon>arrow_back_ios</mat-icon>
+        Cotizaciones
+      </a>
+    </div>
+    <div class="col page-actions">
+      <button mat-button color="warn" class="btn-round btn-sm btn-report" (click)="openReport()">
+        <mat-icon>error</mat-icon>
+        Reportar un problema
+      </button>
+    </div>
+  </div>
+
+  <!-- main -->
+  <div class="row pt-3 gy-5" *ngIf="quotation">
+    <!-- col-left -->
+    <div class="col-lg-7">
+      <!-- card-empresa -->
+      <mat-card class="card-empresa">
+        <mat-card-header>
+          <mat-card-title>
+            <app-profile-picture-avatar [profile_picture]="quotation.company?.profile_picture"></app-profile-picture-avatar>
+            {{ quotation.company?.name }}
+          </mat-card-title>
+          <span class="empresa-id">ID: {{ quotation.group?.id }}-{{quotation.id}}</span>
+          <div>
+            <span class="pill pill-lg pill-{{ quotation.status?.class }} mx-auto">{{ quotation.status?.name }}</span>
+          </div>
+        </mat-card-header>
+      </mat-card>
+
+      <!-- card-info -->
+      <mat-card class="card-info mt-3">
+        <mat-card-content>
+          <dl class="row list-info">
+            <dt class="col-auto">Servicio solicitado:</dt>
+            <dd class="col-auto serv-name">{{ quotation.service?.name || 'N/A' }}</dd>
+            <div class="w-100"></div>
+
+            <dt class="col-auto">Fecha de la solicitud:</dt>
+            <dd class="col-auto">{{ quotation.created_at | date:'dd/MM/yyyy' }}</dd>
+            <div class="w-100"></div>
+
+            <dt class="col-auto">Usuario de la solicitud:</dt>
+            <dd class="col-auto">{{ quotation.user?.firstname+' '+quotation.user?.lastname }}</dd>
+            <div class="w-100"></div>
+
+            <dt class="col-auto">Cantidad:</dt>
+            <dd class="col-auto">{{ quotation.qty }}</dd>
+            <div class="w-100"></div>
+
+            <ng-container *ngIf="quotation.offer?.deliver_at">
+              <dt class="col-auto">Plazo de entrega:</dt>
+              <dd class="col-auto">{{ quotation.offer?.deliver_at | date:'dd/MM/yyyy' }}</dd>
+              <div class="w-100"></div>
+            </ng-container>
+          </dl>
+          <mat-divider></mat-divider>
+          <div class="details pt-4">
+            <h2>Detalles</h2>
+            <p>{{ quotation.details }}</p>
+          </div>
+
+          <a mat-flat-button color="primary" class="btn-round btn-sm" href="{{publicUrl(quotation.file?.url)}}" target="_blank" [disabled]="!quotation.file">
+            <mat-icon>note_add</mat-icon>
+            Ver documento
+          </a>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- card-offer -->
+      <mat-card class="card-offer mt-5">
+        <mat-card-header>
+          <mat-card-title [ngSwitch]="quotation.status?.id">
+            <mat-icon svgIcon="cotizacion-pending" *jrSwitchCases="[1,2,3]"></mat-icon>
+            <mat-icon svgIcon="cotizacion-active" *jrSwitchCases="[5,7]"></mat-icon>
+            <mat-icon svgIcon="cotizacion-reject" *jrSwitchCases="[4,6]"></mat-icon>
+            <mat-icon svgIcon="cotizacion" *ngSwitchDefault></mat-icon>
+            Cotización
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row gx-5 justify-content-center align-items-center row-info" *ngIf="quotation.offer">
+            <div class="col-auto my-3">
+              <h5 class="price">{{ (quotation.offer?.amount|currency) || '-' }}</h5>
+              <div class="date" [ngSwitch]="quotation.status?.id">
+                <span *jrSwitchCases="[5,7]">Aceptada el {{ (quotation.offer?.accepted_at|date:'dd/MM/yyyy') || '--/--/----' }}</span>
+                <span *ngSwitchCase="6">Rechazada el {{ (quotation.offer?.rejected_at|date:'dd/MM/yyyy') || '--/--/----' }}</span>
+                <span *ngSwitchCase="4">Rechazada el {{ (quotation?.discarded_at|date:'dd/MM/yyyy') || '--/--/----' }}</span>
+                <span *ngSwitchDefault>Enviada el {{ (quotation.offer?.created_at|date:'dd/MM/yyyy') || '--/--/----' }}</span>
+              </div>
+            </div>
+            <div class="col-auto my-3">
+              <a mat-flat-button color="accent" class="btn-round btn-view" href="{{publicUrl(quotation.offer?.file?.url)}}" target="_blank" [disabled]="!quotation.offer?.file">Ver cotización</a>
+            </div>
+          </div>
+
+          <ng-container *ngIf="quotation.status?.id == 1">
+            <!-- quotation requested/no offer -->
+            <p>Por favor envia tu cotización a este cliente</p>
+            <form [formGroup]="offerForm" (ngSubmit)="setOffer()">
+              <div class="row justify-content-center">
+                <div class="form-group col-md-10 col-xl-8">
+                  <label for="amount" class="form-label">Precio<span class="input-req">*</span></label>
+                  <mat-form-field class="w-100" appearance="outline">
+                    <input matInput type="number" step="any" id="amount" formControlName="amount" placeholder="Ingresa el monto final de la cotización">
+                      <mat-error *ngIf="offerForm.get('amount')?.hasError('required')">Ingrese un monto a ofrecer para esta cotizacion.</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row justify-content-center">
+                <div class="form-group col-auto ps-5">
+                  <app-file-field
+                    [form]="offerForm"
+                    field="file"
+                    size="sm"
+                    placeholder="Adjuntar un documento"
+                    hint="PDF o XLS"
+                    accept="application/pdf, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    direction="row"
+                    itemAlign="start"
+                    [showStatus]="true"
+                    statusPosition="after"
+                  ></app-file-field>
+                </div>
+              </div>
+
+              <div class="checks-seccion text-center">
+                <p><mat-checkbox formControlName="check">Acepto enviar y respetar esta cotización al cliente.</mat-checkbox></p>
+              </div>
+
+              <div class="d-flex justify-content-center mt-4">
+                <button type="submit" mat-flat-button color="accent" class="btn-round btn-sm" [disabled]="offerForm.invalid">Enviar</button>
+              </div>
+            </form>
+
+
+          </ng-container>
+
+          <ng-container *ngIf="quotation.status?.id == 2">
+            <mat-divider></mat-divider>
+            <div class="row gx-4 justify-content-center align-items-center" >
+              <div class="col-12 mt-3">
+                <p>El cliente no ha aceptado tu cotización</p>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="quotation.status?.id == 3">
+            <mat-divider></mat-divider>
+            <div class="row gx-4 justify-content-center align-items-center">
+              <div class="col-12 mt-3">
+                <p>El cliente no ha cerrado el trato</p>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="quotation.status?.id == 4">
+            <!-- motives-input -->
+            <div class="row justify-content-center pt-3">
+              <div class="col-sm-10">
+                <mat-chip-list [multiple]="true">
+                  <mat-chip #c="matChip" *ngFor="let op of quotation.discard_motives" [value]="op.id" [selected]="true" [selectable]="false">{{op.name}}</mat-chip>
+                </mat-chip-list>
+              </div>
+            </div>
+
+            <!-- details-input for when selectin "other" option -->
+            <ng-container *ngIf="quotation.discard_details">
+              <div class="row justify-content-center pt-3">
+                <div class="col-sm-11">
+                  <p>{{quotation.discard_details}}</p>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngIf="quotation.status?.id == 5 && (quotation.offer?.deliver_at !== null)">
+            <mat-divider></mat-divider>
+            <div class="row gx-4 justify-content-center align-items-center">
+              <div class="col-10 mt-3 text-center">
+                <p>El cliente establecio el plazo de entrega para esta cotización:</p>
+                <span class="date">{{ (quotation.offer?.deliver_at|date:'dd/MM/yyyy') || '--/--/----' }}</span>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="quotation.status?.id == 6">
+            <mat-divider></mat-divider>
+            <div class="row gx-4 justify-content-center align-items-center row-reject-info">
+              <div class="col-12 " *ngIf="quotation.offer?.reject_details">
+                <h5 class="mt-4">Motivo del rechazo</h5>
+                <p class="text-right">{{quotation.offer?.reject_details}}</p>
+              </div>
+            </div>
+          </ng-container>
+
+        </mat-card-content>
+      </mat-card>
+
+      <!-- card-rated -->
+      <mat-card class="card-rating mt-5" *ngIf="quotation.status?.id == 7 && quotation.rating">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon svgIcon="star-active"></mat-icon>
+            Calificaión
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="pb-4">
+          <div class="row pt-4 justify-content-center align-items-center row-controls">
+            <div class="form-group col-auto">
+              <ngx-stars
+                [initialStars]="quotation.rating.rating"
+                [class.unrated]="!quotation.rating.rating"
+                [color]="'#DFBF03'"
+                [size]="3"
+                [maxStars]="5"
+                [customStarIcons]="matStars"
+                [readonly]="true">
+              </ngx-stars>
+            </div>
+          </div>
+
+          <!-- motives-input -->
+          <div class="row justify-content-center pt-3">
+            <div class="col-sm-10">
+              <mat-chip-list [multiple]="true">
+                <mat-chip #c="matChip" *ngFor="let op of quotation.rating.motives" [value]="op.id" [selected]="true" [selectable]="false">{{op.name}}</mat-chip>
+              </mat-chip-list>
+            </div>
+          </div>
+
+          <!-- details-input for when selectin "other" option -->
+          <ng-container *ngIf="quotation.rating.rating_details">
+            <div class="row justify-content-center pt-3">
+              <div class="col-sm-11">
+                <p>{{quotation.rating.rating_details}}</p>
+              </div>
+            </div>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- col-right -->
+    <div class="col-lg-5" *ngIf="[3,5,6,7].includes(quotation.status?.id!)">
+      <!-- card-chat -->
+      <app-chat-card
+        [id]="quotation.id"
+        [type]="'quotation'"
+        [room]="'cotizacion_'+ quotation.id"
+        [titleName]="quotation.supplier?.name"
+        [titlePicture]="quotation.supplier?.profile_picture"
+        [canChat]="canChat()"
+      ></app-chat-card>
+
+      <!-- card-in-chargue -->
+      <mat-card class="card-in-chargue mt-3" *ngIf="quotation.offer?.author && [5,7].includes(quotation.status?.id!)">
+        <mat-card-title>{{ quotation.offer?.author?.firstname }} {{ quotation.offer?.author?.lastname }}</mat-card-title>
+        <mat-card-content>
+          <div class="row g-3">
+            <div class="col-auto"><mat-icon>phone</mat-icon><span class="phone">{{ quotation.supplier?.phone|phone }}</span></div>
+            <div class="col-auto"><mat-icon>mail</mat-icon><span class="email">{{ quotation.offer?.author?.email }}</span></div>
+            <div class="col-12"><mat-icon>place</mat-icon><p>{{ quotation.supplier?.address }}, col. {{ quotation.supplier?.neighborhood }}, {{ quotation.supplier?.city }}, {{ quotation.supplier?.state }}, {{ quotation.supplier?.country }} C.P. {{ quotation.supplier?.postal_code }}</p></div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

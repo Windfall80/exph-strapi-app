@@ -1,0 +1,57 @@
+<div [formGroup]="form" class="d-flex justify-content-center align-items-{{itemAlign}}" [class.flex-column]="direction == 'col'">
+  <div class="preview" *ngIf="showPreview"
+    [class.mb-3]="direction == 'col'"
+    [class.me-4]="direction == 'row'"
+  >
+    <ng-container *ngIf="filePlaceholder && !imgSrc; else preview">
+      <img [src]="publicUrl(filePlaceholder.formats?.thumbnail? filePlaceholder.formats?.thumbnail.url: filePlaceholder.url)">
+    </ng-container>
+    <ng-template #preview>
+      <img [src]="imgSrc" *ngIf="imgSrc">
+    </ng-template>
+
+  </div>
+
+  <div class="status" *ngIf="showStatus"
+    [class.mb-3]="direction == 'col' && statusPosition == 'before'"
+    [class.me-3]="direction == 'row' && statusPosition == 'before'"
+    [class.ms-3]="direction == 'row' && statusPosition == 'after'"
+    [class.sm]="direction == 'row' && size == 'sm'"
+    [class.order-last]="statusPosition == 'after'"
+  >
+    <ng-container *ngIf="!filePlaceholder; else icon_check">
+      <mat-icon class="check-icon" svgIcon="check" *ngIf="form.get(field)?.value"></mat-icon>
+      <mat-icon class="check-icon pointer" svgIcon="reject" *ngIf="!form.get(field)?.value" (click)="input.click()"></mat-icon>
+    </ng-container>
+    <ng-template #icon_check>
+      <mat-icon class="check-icon" svgIcon="check"></mat-icon>
+    </ng-template>
+  </div>
+
+  <div class="field">
+    <input #input type="file" multiple="false" [accept]="accept" [formControlName]="field" (change)="onFileChange($event)" style="display: none;">
+
+    <div class="field-wrapper">
+      <div class="field-flex" [class.sm]="size == 'sm'">
+        <ng-container *ngIf="!form.get(field)?.value">
+          <button type="button" mat-flat-button color="primary" class="btn-round upload-btn" (click)="input.click()">
+            <mat-icon>note_add</mat-icon>
+            <span>{{placeholder || 'Select file...'}}</span>
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="form.get(field)?.value">
+          <div class="selected-flex">
+            <mat-icon color="primary">note_add</mat-icon>
+            <span>{{getFilename(form.get(field)?.value)}}</span>
+            <button type="button" mat-icon-button color="warn" (click)="clear()"><mat-icon>delete_forever</mat-icon></button>
+          </div>
+        </ng-container>
+      </div>
+      <div class="field-subscript-wrapper text-center">
+        <mat-hint *ngIf="hint && !(form.get(field)?.invalid && form.get(field)?.touched)">{{hint}}</mat-hint>
+        <mat-error *ngIf="form.get(field)?.hasError('required') && form.get(field)?.touched">Seleccione archivo...</mat-error>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+.points-card{
+  width: 230px;
+  background: #FFFFFF;
+  /* modal-shadow */
+  box-shadow: 0px 5px 5px rgba(64, 148, 171, 0.24);
+  border-radius: 31px;
+
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  /* gris-muy-oscuro */
+  color: #5A6A6F;
+
+  .points{
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 44px;
+    text-align: right;
+    /* cyan */
+    color: #00AAD3;
+  }
+}
+
+.exchange-form{
+  h5{
+    /* titulos-cajas */
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    /* cyan */
+    color: #00AAD3;
+  }
+
+  p{
+    /* parrafos */
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    /* gris-muy-oscuro */
+    color: #5A6A6F;
+  }
+
+  .qty-group{
+    mat-form-field{
+      width: 87px;
+    }
+
+    label{
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 13px;
+      line-height: 16px;
+      /* gris-muy-oscuro */
+      color: #5A6A6F;
+    }
+  }
+
+  .unit-price{
+    padding-bottom: 1em;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    /* cyan */
+    color: #00AAD3;
+
+    span{
+      font-size: 36px;
+      line-height: 44px;
+    }
+  }
+
+  .btn-row{
+    button{
+      width: 160px;
+    }
+  }
+}

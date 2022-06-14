@@ -1,0 +1,49 @@
+<mat-card>
+  <mat-card-content>
+    <div class="row flex-column flex-md-row justify-content-center">
+      <!-- imagen -->
+      <div class="col-auto image-cont pb-3 pb-md-0">
+        <ng-container *ngIf="offer.image; else placeholder">
+          <img [src]="offer.image.formats.small? publicUrl(offer.image.formats.small.url) : publicUrl(offer.image.url)">
+        </ng-container>
+        <ng-template #placeholder>
+          <img [src]="assetUrl('assets/image-placeholder.png')">
+        </ng-template>
+      </div>
+      <!-- detalles -->
+      <div class="col detalles-cont">
+        <div class="row pb-2">
+          <div class="col-auto me-auto">
+            <h2 class="breadcrumbs">{{ offer.main_category?.name }}</h2>
+            <h1 class="titulo">{{ offer.name }}</h1>
+          </div>
+          <div class="col-auto actions">
+            <a mat-flat-button color="accent" class="btn-round btn-sm" routerLink="{{offer.id}}/update">Editar</a>
+          </div>
+        </div>
+        <p class="descripcion-corta">{{ offer.description | truncate:320:false }} <a routerLink="{{ offer.id }}">Ver más</a></p>
+        <mat-divider inset="true"></mat-divider>
+
+        <dl class="row mt-3 mb-0">
+          <div class="col-auto d-flex">
+            <dt class="me-2">Precio:</dt>
+            <dd>{{ (offer.price|currency) || '-' }}</dd>
+          </div>
+          <div class="col-auto d-flex">
+            <dt class="me-2">Vence en:</dt>
+            <dd *ngIf="offer.requested">Solicitada</dd>
+            <dd *ngIf="!offer.requested">{{ !expired()? (offer.expires_at|amLocale:'es'|amTimeAgo:true):'Vencida' }}</dd>
+          </div>
+        </dl>
+        <div class="row">
+          <div class="col-auto not-published" *ngIf="!offer.published_at">
+            NO PUBLICADO
+          </div>
+          <div class="col-auto ms-auto">
+            <button mat-button color="warn" class="btn-round btn-xs" (click)="delete()"><mat-icon>delete_forever</mat-icon> Borrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

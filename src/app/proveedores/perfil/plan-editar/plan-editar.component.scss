@@ -1,0 +1,222 @@
+.container > mat-card{
+  box-shadow: 0px 5px 5px rgb(64 148 171 / 24%) !important;
+  border-radius: 31px;
+
+  mat-card-title{
+    /* titulos-cajas */
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    /* cyan */
+    color: #00AAD3;
+  }
+
+  p{
+    /* parrafos */
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    /* gris-muy-oscuro */
+    color: #5A6A6F;
+
+    span.date{
+      font-weight: bold;
+      color: #00AAD3;
+    }
+  }
+
+  .renew-form{
+
+    h5{
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 17px;
+      color: #5A6A6F;
+    }
+
+    .form-group{
+      &:not(.text-center){
+        label{
+          margin-left: 0.5em;
+          margin-right: -1.6em;
+        }
+      }
+      label{
+        margin-bottom: 0;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 15px;
+        /* gris-muy-oscuro */
+        color: var(--app-gris-muy-oscuro);
+
+        span.input-req{
+          margin-left: 0.3em;
+          color: var(--app-rojo);
+        }
+
+        mat-icon.input-info{
+          margin-left: 0.3em;
+          width: auto;
+          height: auto;
+          font-size: 15px;
+          line-height: 1em;
+          vertical-align: middle;
+          color: var(--app-cyan);
+        }
+      }
+      .mat-form-field{
+        width: 100%;
+      }
+    }
+
+    mat-button-toggle-group.planes-group{
+      display: contents;
+
+      mat-button-toggle{
+        width: 125px;
+        margin-left: auto!important;
+        margin-right: auto!important;
+
+        background: #FFFFFF;
+        border: 1px solid var(--app-gris-claro);
+        box-sizing: border-box;
+        border-radius: 50px;
+        overflow: hidden;
+
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 17px;
+        color: var(--app-gris-muy-oscuro);
+
+        &.mat-button-toggle-checked{
+          color: #FFF;
+          background-color: var(--app-cyan);
+          border: 1px solid var(--app-cyan);
+        }
+
+        &.mat-button-toggle-disabled{
+          background: #d1d1d1;
+        }
+
+        ::ng-deep{
+          .mat-button-toggle-label-content {
+            line-height: 30px;
+          }
+        }
+      }
+
+      .planes-row{
+        @media (max-width: 767px) {
+          margin-right: 0rem!important;
+          margin-left: 0rem!important;
+        }
+        @media (min-width: 768px) {
+          margin-right: -1.5rem!important;
+          margin-left: -1.5rem!important;
+        }
+        @media (min-width: 992px) {
+          margin-right: -3.5rem!important;
+          margin-left: -3.5rem!important;
+        }
+
+
+
+        & > div{
+          mat-card.plan-card{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 300px;
+            width: 235px;
+            background: #FFFFFF;
+            border: 1px solid rgba(151, 188, 197, 0.4);
+            box-sizing: border-box;
+            border-radius: 10px;
+            box-shadow: none;
+
+            &.selected{
+              filter: drop-shadow(0px 5px 5px rgba(64, 148, 171, 0.24));
+            }
+
+            .plan-info{
+              .plan-tipo{
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 22px;
+                margin-bottom: 5px;
+                color: var(--app-blue-cyan);
+              }
+              .plan-precio{
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 24px;
+                line-height: 29px;
+                margin-bottom: 5px;
+                color: var(--app-amarillo-claro);
+              }
+              .plan-duracion{
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 11px;
+                line-height: 13px;
+                color: var(--app-gris-muy-oscuro);
+                white-space: normal;
+              }
+
+              mat-list.plan-perks{
+                mat-list-item{
+                  height: auto;
+                  font-family: Montserrat;
+                  font-style: normal;
+                  font-weight: 500;
+                  font-size: 12px;
+                  line-height: 15px;
+                  color: var(--app-gris-muy-oscuro);
+                  ::ng-deep{
+                    .mat-list-item-content{
+                      padding: 0;
+                    }
+                  }
+
+                  mat-icon{
+                    color: var(--app-cyan);
+                  }
+                }
+              }
+
+            }
+          }
+        }
+      }
+    }
+
+    .checks-seccion{
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 14px;
+      color: var(--app-gris-muy-oscuro);
+
+      span{
+        color: var(--app-cyan);
+      }
+    }
+  }
+}

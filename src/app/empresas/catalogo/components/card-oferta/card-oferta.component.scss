@@ -1,0 +1,142 @@
+mat-card{
+  /* modal-shadow */
+  box-shadow: 0px 5px 5px rgba(64, 148, 171, 0.24)!important;
+  border-radius: 17px;
+
+  .image-cont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img{
+      width: 195px;
+      height: 200px;
+
+      background: #F2F2F2;
+      border: 1px solid #F2F2F2;
+      border-radius: 18px;
+    }
+  }
+
+  .detalles-cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .actions{
+      text-align: right;
+
+      a{
+        /* proveedor-link */
+        cursor: pointer;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 13px;
+        line-height: 16px;
+        /* gris-muy-oscuro */
+        color: #5A6A6F;
+      }
+
+      .fav-btn:not(.isfav){
+        mat-icon{
+          color: #C4C4C4!important;
+        }
+      }
+    }
+
+    .breadcrumbs{
+      margin-bottom: 0.5em;
+      /* breadcrumbs */
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      /* cyan */
+      color: #00AAD3;
+    }
+
+    .titulo{
+      margin-bottom: 0.5em;
+      /* titulos-cajas */
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 22px;
+      /* azul-marino */
+      color: #062EBD;
+    }
+
+    .marca{
+      margin-bottom: 1em;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 15px;
+      /* amarillo-claro */
+      color: #DFBF03;
+    }
+
+    .descripcion-corta{
+      /* parrafos-cajas */
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 15px;
+      /* dark-gray */
+      color: #999D9E;
+
+      a{
+        /* cyan */
+        color: #00AAD3;
+      }
+    }
+
+    .line-data{
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 13px;
+      line-height: 16px;
+      /* gris-muy-oscuro */
+      color: #5A6A6F;
+
+      span{
+        /* cyan */
+        color: #00AAD3;
+      }
+    }
+
+    dl{
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 13px;
+      line-height: 16px;
+
+      dt{
+        color: #5A6A6F;
+      }
+      dd{
+        color: #00AAD3;
+      }
+    }
+
+    .requested{
+      margin: 0;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 13px;
+      line-height: 16px;
+      display: flex;
+      align-items: center;
+      /* cyan */
+      color: #00AAD3;
+    }
+
+  }
+}

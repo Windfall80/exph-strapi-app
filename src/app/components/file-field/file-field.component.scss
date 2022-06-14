@@ -1,0 +1,122 @@
+.preview{
+  width: 84px;
+  height: 84px;
+  border: 1px solid rgba(151, 188, 197, 0.4);
+  background: #6363630f;
+  box-sizing: border-box;
+  filter: drop-shadow(0px 5px 5px rgba(64, 148, 171, 0.24));
+  border-radius: 100px;
+  overflow: hidden;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+  }
+}
+
+.status{
+  margin: 0.25em 0;
+  width: 45px;
+  min-width: 45px;
+  height: 50px;
+
+  .check-icon{
+    width: 100%;
+    height: 100%;
+
+    &.pointer{
+      cursor: pointer;
+    }
+  }
+
+  &.sm{
+    width: 34px;
+    height: 38px;
+  }
+}
+
+.field{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  max-width: 100%;
+
+  .field-wrapper {
+    position: relative;
+    margin: .25em 0;
+    padding-bottom: 1.34375em;
+    width: 100%;
+
+    .field-flex{
+      display: flex;
+      min-height: 48px;
+      width: 100%;
+
+      &.sm{
+        min-height: 37px;
+      }
+
+      .upload-btn{
+        flex-grow: 1;
+        padding: 0 8px;
+
+        span{
+          display: inline-block;
+          max-width: calc(100% - 24px);
+          text-align: left;
+          padding-left: 0.5em;
+          padding-top: 8px;
+          padding-bottom: 8px;
+          white-space: pre-wrap !important;
+
+          /* btn-ico */
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 11px;
+          line-height: 13px;
+        }
+      }
+
+      .selected-flex{
+        flex-grow: 1;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        span{
+          flex-grow: 1;
+          margin: 0 8px;
+          /* options */
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 11px;
+          line-height: 13px;
+          text-align: center;
+          word-break: break-all;
+          /* gris-muy-oscuro */
+          color: #5A6A6F;
+        }
+      }
+    }
+
+    .field-subscript-wrapper {
+      position: absolute;
+      box-sizing: border-box;
+      width: 100%;
+      overflow: hidden;
+      font-size: 75%;
+
+      .mat-error {
+        color: #f44336;
+      }
+    }
+  }
+
+
+}

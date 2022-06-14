@@ -1,0 +1,60 @@
+<mat-card>
+  <mat-card-content>
+    <div class="row flex-column flex-md-row justify-content-center">
+      <!-- imagen -->
+      <div class="col-auto image-cont pb-3 pb-md-2">
+        <img [src]="supplier.profile_picture? publicUrl(supplier.profile_picture.url) : assetUrl('assets/image-placeholder-2.png')">
+      </div>
+      <!-- detalles -->
+      <div class="col detalles-cont">
+        <div class="row pb-2">
+          <div class="col-auto me-auto">
+            <h2 class="breadcrumbs">{{ supplier.main_category?.name }}</h2>
+            <h1 class="titulo">{{ supplier.name }}</h1>
+            <div class="ratings">
+              <ngx-stars
+                [color]="'#DFBF03'"
+                [initialStars]="supplier.rating"
+                [size]="2"
+                [maxStars]="5"
+                [customStarIcons]="matStars"
+                [readonly]="true">
+              </ngx-stars>
+              <span>{{supplier.rating_count||'-'}} Cotizaciones</span>
+            </div>
+          </div>
+          <div class="col-auto actions">
+            <div class="proveedor">
+              <button mat-icon-button color="primary" class="fav-btn" [class.isfav]="supplier.isFav" (click)="supplier.isFav? removeFav(): addFav()" [disabled]="wait">
+                <mat-icon *ngIf="!supplier.isFav">favorite_border</mat-icon>
+                <mat-icon *ngIf="supplier.isFav">favorite</mat-icon>
+              </button>
+            </div>
+            <button mat-flat-button color="accent" class="btn-round btn-sm" routerLink="{{supplier.id}}">Ver Perfil</button>
+          </div>
+        </div>
+
+        <p class="descripcion-corta">{{ supplier.description_short }}</p>
+
+      </div>
+    </div>
+    <mat-divider class="mb-3" inset></mat-divider>
+
+    <div class="row">
+      <!-- met-pago -->
+      <div class="col-12 pm-row mb-3">
+        <h4 class="row-title">Métodos de pago</h4>
+          <mat-chip-list class="payment-options">
+            <mat-chip #c="matChip" *ngFor="let op of supplier.payment_methods" [value]="op.id" [selectable]="false" selected>{{op.name}}</mat-chip>
+          </mat-chip-list>
+      </div>
+      <!-- met-plazo -->
+      <div class="col-12 pm-row">
+        <h4 class="row-title">Plazos de pago</h4>
+        <mat-chip-list class="payment-options">
+          <mat-chip #c="matChip" *ngFor="let op of supplier.payment_terms" [value]="op.id" [selectable]="false" selected>{{op.name}}</mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

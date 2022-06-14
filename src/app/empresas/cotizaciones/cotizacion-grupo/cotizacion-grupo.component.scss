@@ -1,0 +1,124 @@
+.search-form{
+
+  .form-group{
+    label{
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 15px;
+      color: var(--app-gris-muy-oscuro);
+    }
+
+    mat-form-field{
+      display: block;
+      width: 130px;
+      max-width: 100%;
+
+      &.search-name{
+        width: 330px;
+
+        &::ng-deep{
+          .mat-form-field-prefix{
+            align-self: center;
+          }
+        }
+      }
+
+      &.search-user{
+        width: 156px;
+      }
+      mat-icon{
+        color: var(--app-amarillo-claro);
+      }
+    }
+  }
+}
+
+.actions-form{
+  .form-group{
+    label{
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 15px;
+      color: var(--app-gris-muy-oscuro);
+    }
+
+    mat-checkbox{
+      line-height: 40px;
+    }
+  }
+}
+
+table.mat-table {
+  display: table;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  filter: drop-shadow(0px 5px 5px rgba(64, 148, 171, 0.24));
+
+  ::ng-deep{
+    .mat-header-cell {
+      background-color: var(--app-blue-cyan);
+      color: #FFF;
+    }
+    .mat-row:nth-child(2n+1){
+      background-color: #FFFFFF;
+    }
+    .mat-row:not(:nth-child(2n+1)){
+      background-color:#F6F9FA;
+    }
+  }
+
+  .mat-cell {
+    cursor: pointer;
+  }
+
+  .status-cell{
+    span.pill{
+      width: 100px;
+    }
+  }
+
+  .price-cell{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 12px;
+
+    /* verde */
+    color: #64C97A;
+  }
+
+  .badges-cell{
+    mat-icon{
+      line-height: 27px;
+      height: 27px;
+      width: 27px;
+      margin-right: 5px;
+
+      ::ng-deep{
+        .mat-badge-content{
+          top: 2px;
+          right: -4px;
+          font-size: 7px;
+          line-height: 12px;
+          width: 12px;
+          height: 12px;
+        }
+      }
+    }
+  }
+
+  .actions-cell{
+    cursor: unset;
+    mat-badge-medium.mat-badge-above .mat-badge-content {
+      top: unset;
+      right: unset;
+    }
+  }
+
+}

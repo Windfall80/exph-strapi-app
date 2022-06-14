@@ -1,0 +1,57 @@
+.mat-dialog-title{
+  color: var(--app-text-primary);
+}
+
+.user-form{
+  margin-top: 1em;
+
+  .form-group{
+    &:not(.text-center){
+      label{
+        margin-left: 0.5em;
+        margin-right: -1.6em;
+      }
+    }
+    label{
+      margin-bottom: 0;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 15px;
+      /* gris-muy-oscuro */
+      color: var(--app-gris-muy-oscuro);
+
+      span.input-req{
+        margin-left: 0.3em;
+        color: var(--app-rojo);
+      }
+
+      mat-icon.input-info{
+        margin-left: 0.3em;
+        width: auto;
+        height: auto;
+        font-size: 15px;
+        line-height: 1em;
+        vertical-align: middle;
+        color: var(--app-cyan);
+      }
+    }
+    .mat-form-field{
+      width: 100%;
+    }
+  }
+
+  .checks-seccion{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--app-gris-muy-oscuro);
+
+    span{
+      color: var(--app-cyan);
+    }
+  }
+}

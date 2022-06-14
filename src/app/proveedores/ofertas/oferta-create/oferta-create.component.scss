@@ -1,0 +1,132 @@
+.container{
+  @media (min-width: 992px){ max-width: calc(1000px + var(--bs-gutter-x,.75rem)*2); }
+}
+
+mat-card {
+  border-radius: 30px 30px 10px 10px;
+  overflow: hidden;
+
+  mat-card-title{
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1)) ,url('~src/assets/banner-cotizador.png');
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    h1{
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 28px;
+      display: flex;
+      align-items: center;
+
+      /* white */
+      color: #FFFFFF;
+    }
+    p{
+      margin-bottom: 0;
+
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 126.69%;
+      /* or 18px */
+      /* white */
+      color: #FFFFFF;
+    }
+  }
+
+  mat-card-content{
+
+    .btn-row{
+      display: flex;
+      justify-content: space-between;
+
+      & > button:only-child {
+        margin-left: auto;
+      }
+    }
+  }
+}
+
+.offer-form{
+  margin-top: 3em;
+
+  .form-group{
+    &:not(.text-center){
+      label{
+        margin-left: 0.5em;
+        margin-right: -1.6em;
+      }
+    }
+    label{
+      margin-bottom: 0;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 15px;
+      /* gris-muy-oscuro */
+      color: var(--app-gris-muy-oscuro);
+
+      span.input-req{
+        margin-left: 0.3em;
+        color: var(--app-rojo);
+      }
+
+      mat-icon.input-info{
+        margin-left: 0.3em;
+        width: auto;
+        height: auto;
+        font-size: 15px;
+        line-height: 1em;
+        vertical-align: middle;
+        color: var(--app-cyan);
+      }
+    }
+    .mat-form-field{
+      width: 100%;
+    }
+
+    app-file-field{
+      &::ng-deep{
+        .preview{
+          width: 145px!important;
+          min-width: 145px!important;
+          height: 145px!important;
+          border-radius: 10px!important;
+        }
+        .field{
+          @media(min-width: 1200px){width: 140px;}
+          width: -webkit-fill-available;
+        }
+        .status.order-last{
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+
+  .checks-seccion{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--app-gris-muy-oscuro);
+
+    span{
+      color: var(--app-cyan);
+    }
+  }
+
+  .btn-row{
+    button{
+      min-width: 160px;
+    }
+  }
+}
+
+

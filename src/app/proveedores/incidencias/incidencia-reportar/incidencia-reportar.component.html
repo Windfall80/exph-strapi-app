@@ -1,0 +1,57 @@
+
+<form [formGroup]="issueForm" (ngSubmit)="onSubmit()">
+  <h2 mat-dialog-title class="text-center">¿Tienes algun problema?</h2>
+  <mat-dialog-content class="pb-3">
+    <p>No te preocupes estamos para ayudarte, ayudanos con el siguiente formulario para poder atender tu problema, podrás consultar el status de tu solicitud en el panel de incidencias. Puedes adjuntar una captura para entender mejor la situación</p>
+    <mat-divider></mat-divider>
+
+    <!-- select-input -->
+    <div class="row justify-content-center pt-3">
+      <div class="col-sm-8">
+        <label for="type">Tipo de problema</label>
+        <mat-form-field appearance="outline">
+          <mat-select id="type" placeholder="Origen del problema" formControlName="type" disableOptionCentering>
+            <mat-option *ngFor="let op of typesList" [value]="op.id">{{op.name}}</mat-option>
+          </mat-select>
+            <mat-error *ngIf="issueForm.get('type')?.hasError('required')">Selecciona el problema que quieres reportar.</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- textarea-input -->
+    <div class="row justify-content-center pt-3">
+      <div class="col-sm-11">
+        <mat-form-field appearance="outline">
+          <textarea matInput id="details" formControlName="details" rows="6" placeholder="Escribenos mas detalles"></textarea>
+            <mat-error *ngIf="issueForm.get('type')?.hasError('required')">Describe el problema.</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- file-input -->
+    <div class="row justify-content-center pt-3">
+      <div class="col-auto">
+        <app-file-field
+          [form]="issueForm"
+          field="screenshot"
+          placeholder="Adjuntar una captura"
+          hint="JPG o PNG"
+          accept="image/png, image/jpeg"
+          [showStatus]="false"
+          direction="col"
+        ></app-file-field>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-divider></mat-divider>
+
+
+
+  <mat-dialog-actions class="row justify-content-center py-3">
+    <div class="col-auto">
+      <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+      <button type="submit" mat-flat-button color='accent' class="btn-round" cdkFocusInitial>Aceptar</button>
+    </div>
+    <div class="col-auto">
+      <button type="button" mat-flat-button color='primary' class="btn-round" mat-dialog-close>Cancelar</button>
+    </div>
+  </mat-dialog-actions>
+</form>

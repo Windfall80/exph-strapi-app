@@ -1,0 +1,219 @@
+<div class="container pt-5 px-md-5">
+  <!-- title bar -->
+  <div class="row">
+    <div class="col page-title">
+      <a class="btn-return" routerLink="..">
+        <mat-icon>arrow_back_ios</mat-icon>
+        Ofertas relámpago
+      </a>
+    </div>
+    <div class="col page-actions">
+      <button mat-button color="warn" class="btn-round btn-sm btn-report" (click)="openReport()">
+        <mat-icon>error</mat-icon>
+        Reportar un problema
+      </button>
+    </div>
+  </div>
+
+  <!-- main -->
+  <div class="row pt-3 gy-5" *ngIf="request">
+    <!-- col-left -->
+    <div class="col-lg-7">
+      <!-- card-empresa -->
+      <mat-card class="card-empresa">
+        <mat-card-header>
+          <mat-card-title>
+            <app-profile-picture-avatar [profile_picture]="request.company?.profile_picture"></app-profile-picture-avatar>
+            {{ request.company?.name }}
+          </mat-card-title>
+          <span class="empresa-id">ID: {{ request.id }}</span>
+          <div>
+            <span class="pill pill-lg pill-{{ request.status?.class }} mx-auto">{{ request.status?.name }}</span>
+          </div>
+        </mat-card-header>
+      </mat-card>
+
+      <!-- card-info -->
+      <mat-card class="card-info mt-3">
+        <mat-card-content>
+          <dl class="row list-info">
+            <dt class="col-auto">Servicio solicitado:</dt>
+            <dd class="col-auto serv-name">{{ request.offer?.name }}</dd>
+            <div class="w-100"></div>
+
+            <dt class="col-auto">Fecha de la solicitud:</dt>
+            <dd class="col-auto">{{ request.created_at | date:'dd/MM/yyyy' }}</dd>
+            <div class="w-100"></div>
+
+            <dt class="col-auto">Usuario de la solicitud:</dt>
+            <dd class="col-auto">{{ request.user?.firstname+' '+request.user?.lastname }}</dd>
+            <div class="w-100"></div>
+
+            <ng-container *ngIf="request.deliver_at">
+              <dt class="col-auto">Plazo de entrega:</dt>
+              <dd class="col-auto">{{ request.deliver_at | date:'dd/MM/yyyy' }}</dd>
+              <div class="w-100"></div>
+            </ng-container>
+          </dl>
+          <mat-divider></mat-divider>
+          <div class="details pt-4">
+            <h2>Detalles</h2>
+            <p>{{ request.details }}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- card-offer -->
+      <mat-card class="card-offer mt-5">
+        <mat-card-header>
+          <mat-card-title [ngSwitch]="request.status?.id">
+            <mat-icon svgIcon="cotizacion-pending" *jrSwitchCases="[1,2,3]"></mat-icon>
+            <mat-icon svgIcon="cotizacion-active" *jrSwitchCases="[5,7]"></mat-icon>
+            <mat-icon svgIcon="cotizacion-reject" *jrSwitchCases="[4,6]"></mat-icon>
+            <mat-icon svgIcon="cotizacion" *ngSwitchDefault></mat-icon>
+            Precio
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row gx-5 justify-content-center align-items-center row-info">
+            <div class="col-auto my-3">
+              <h5 class="price">{{ (request.offer?.price|currency) || '-' }}</h5>
+              <div class="date" [ngSwitch]="request.status?.id">
+                <span *jrSwitchCases="[5,7]">Aceptada el {{ (request.accepted_at|date:'dd/MM/yyyy') || '--/--/----' }}</span>
+                <span *ngSwitchCase="6">Rechazada el {{ (request.rejected_at|date:'dd/MM/yyyy') || '--/--/----' }}</span>
+                <span *ngSwitchCase="4">Rechazada el {{ (request.discarded_at|date:'dd/MM/yyyy') || '--/--/----' }}</span>
+                <span *ngSwitchDefault>Enviada el {{ (request.created_at|date:'dd/MM/yyyy') || '--/--/----' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <ng-container *ngIf="request.status?.id == 2">
+            <mat-divider></mat-divider>
+            <div class="row gx-5 justify-content-center align-items-center row-controls">
+              <div class="col-auto my-4">
+                <button mat-flat-button color="accent" class="btn-round btn-md" (click)="accept()">Aceptar</button>
+              </div>
+              <div class="col-auto my-4">
+                <button mat-flat-button color="primary" class="btn-round btn-md" (click)="discard()">Rechazar</button>
+              </div>
+              <div class="col-12">
+                <p>Para poder ver los datos y el chat con este cliente debes aceptar esta solicitud</p>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="request.status?.id == 4">
+            <!-- motives-input -->
+            <div class="row justify-content-center pt-3">
+              <div class="col-sm-10">
+                <mat-chip-list [multiple]="true">
+                  <mat-chip #c="matChip" *ngFor="let op of request.discard_motives" [value]="op.id" [selected]="true" [selectable]="false">{{op.name}}</mat-chip>
+                </mat-chip-list>
+              </div>
+            </div>
+
+            <!-- details-input for when selectin "other" option -->
+            <ng-container *ngIf="request.discard_details">
+              <div class="row justify-content-center pt-3">
+                <div class="col-sm-11">
+                  <p>{{request.discard_details}}</p>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngIf="request.status?.id == 5 && (request.deliver_at)">
+            <mat-divider></mat-divider>
+            <div class="row gx-4 justify-content-center align-items-center">
+              <div class="col-10 mt-3 text-center">
+                <p>El cliente establecio el plazo de entrega para:</p>
+                <span class="date">{{ (request.deliver_at|date:'dd/MM/yyyy') || '--/--/----' }}</span>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="request.status?.id == 6">
+            <mat-divider></mat-divider>
+            <div class="row gx-4 justify-content-center align-items-center row-reject-info">
+              <div class="col-12 " *ngIf="request.reject_details">
+                <h5 class="mt-4">Motivo del rechazo</h5>
+                <p class="text-right">{{request.reject_details}}</p>
+              </div>
+            </div>
+          </ng-container>
+
+        </mat-card-content>
+      </mat-card>
+
+      <!-- card-rated -->
+      <mat-card class="card-rating mt-5" *ngIf="request.status?.id == 7 && request.rating">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon svgIcon="star-active"></mat-icon>
+            Calificaión
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="pb-4">
+          <div class="row pt-4 justify-content-center align-items-center row-controls">
+            <div class="form-group col-auto">
+              <ngx-stars
+                [initialStars]="request.rating.rating"
+                [class.unrated]="!request.rating.rating"
+                [color]="'#DFBF03'"
+                [size]="3"
+                [maxStars]="5"
+                [customStarIcons]="matStars"
+                [readonly]="true">
+              </ngx-stars>
+            </div>
+          </div>
+
+          <!-- motives-input -->
+          <div class="row justify-content-center pt-3">
+            <div class="col-sm-10">
+              <mat-chip-list [multiple]="true">
+                <mat-chip #c="matChip" *ngFor="let op of request.rating.motives" [value]="op.id" [selected]="true" [selectable]="false">{{op.name}}</mat-chip>
+              </mat-chip-list>
+            </div>
+          </div>
+
+          <!-- details-input for when selectin "other" option -->
+          <ng-container *ngIf="request.rating.rating_details">
+            <div class="row justify-content-center pt-3">
+              <div class="col-sm-11">
+                <p>{{request.rating.rating_details}}</p>
+              </div>
+            </div>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- col-right -->
+    <div class="col-lg-5" *ngIf="[3,5,6,7].includes(request.status?.id!)">
+      <!-- card-chat -->
+      <app-chat-card
+        [id]="request.id"
+        [type]="'offer_request'"
+        [room]="'oferta_'+ request.id"
+        [titleName]="request.supplier?.name"
+        [titlePicture]="request.supplier?.profile_picture"
+        [canChat]="canChat()"
+      ></app-chat-card>
+
+      <!-- card-in-chargue -->
+      <mat-card class="card-in-chargue mt-3" *ngIf="request.offer?.author && [5,7].includes(request.status?.id!)">
+        <mat-card-title>{{ request.offer?.author?.firstname }} {{ request.offer?.author?.lastname }}</mat-card-title>
+        <mat-card-content>
+          <div class="row g-3">
+            <div class="col-auto"><mat-icon>phone</mat-icon><span class="phone">{{ request.supplier?.phone|phone }}</span></div>
+            <div class="col-auto"><mat-icon>mail</mat-icon><span class="email">{{ request.offer?.author?.email }}</span></div>
+            <div class="col-12"><mat-icon>place</mat-icon><p>{{ request.supplier?.address }}, col. {{ request.supplier?.neighborhood }}, {{ request.supplier?.city }}, {{ request.supplier?.state }}, {{ request.supplier?.country }} C.P. {{ request.supplier?.postal_code }}</p></div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

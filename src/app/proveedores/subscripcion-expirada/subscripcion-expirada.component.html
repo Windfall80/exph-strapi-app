@@ -1,0 +1,88 @@
+<ng-container *ngIf="currentUser.role.type == 'administrator'; else message_emloyee">
+  <div class="container pt-5 px-md-5">
+
+    <ng-container *ngIf="currentUser.supplier?.invoice_status == 'draft' || currentUser.supplier?.invoice_status == 'open'; else renew_card">
+      <mat-card class="text-center">
+        <mat-card-title>Procesando pago</mat-card-title>
+        <mat-card-content>
+          <p class="my-4">El pago de tu subscripción esta siendo procesado, vuelve a intentarlo más tarde.</p>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+
+    <ng-template #renew_card>
+      <mat-card class="text-center">
+        <mat-card-title>Suscripción expirada</mat-card-title>
+        <mat-card-content>
+          <p class="my-4" *ngIf="isExpired()">Tu suscripción expiró el día <span class="date">{{currentUser.supplier?.current_period_end | date:'dd/MM/yyyy' }}</span>, para continuar utilizando la plataforma suscríbete a uno de nuestros planes:</p>
+          <p class="my-4" *ngIf="!isExpired()">Ocurrió un error al procesar tu pago, selecciona un plan e intentalo nuevamente:</p>
+
+          <form [formGroup]="renewForm" class="renew-form py-2 px-lg-5 text-center" (ngSubmit)="onSubmit()" *ngIf="renewForm">
+            <h5>1: Selecciona un plan</h5>
+            <div class="form-group mb-4">
+              <mat-button-toggle-group class="planes-group" formControlName="price">
+                <div class="row gx-4 planes-row justify-content-center">
+                  <div class="col-auto mb-3" *ngFor="let p of plan_prices | orderBy:'order'">
+                    <mat-card class="plan-card text-center" [class.selected]="renewForm.get('price')?.value == p.id">
+                      <div class="plan-info">
+                        <h5 class="plan-tipo">{{ p.plan.name }}</h5>
+                        <h4 class="plan-precio">
+                          <ng-container *ngIf="p.price == 0">Gratis</ng-container>
+                          <ng-container *ngIf="p.price > 0">{{ p.price | currency }}</ng-container>
+                        </h4>
+                        <p class="plan-duracion">{{ p.duration }}</p>
+                        <mat-list class="plan-perks" dense>
+                          <mat-list-item *ngFor="let pp of p.plan.perks" [hidden]="pp.target && pp.target!='supplier'">
+                            <mat-icon matListIcon>check_circle</mat-icon>{{pp.description}}
+                          </mat-list-item>
+                        </mat-list>
+                      </div>
+                      <mat-button-toggle class="mx-4" color="accent" [value]="p.id">Elegir</mat-button-toggle>
+                    </mat-card>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <mat-error *ngIf="renewForm.get('price')?.hasError('required') && renewForm.get('price')?.touched">Selecciona un plan.</mat-error>
+                </div>
+              </mat-button-toggle-group>
+            </div>
+
+            <h5>2: Selecciona un método de pago</h5>
+            <div class="form-group mb-4">
+              <app-stripe-card (selectCard)="changeCard($event)"></app-stripe-card>
+              <div class="text-center">
+                <mat-error *ngIf="renewForm.get('paymentcard')?.hasError('required') && renewForm.get('paymentcard')?.touched">Selecciona un método de pago.</mat-error>
+              </div>
+            </div>
+
+            <mat-divider inset></mat-divider>
+
+            <div class="checks-seccion text-center mt-4">
+              <p><mat-checkbox formControlName="tos">Acepto los <span (click)="showTOS($event)">Términos y condiciones</span> y el <span (click)="showPP($event)">Aviso de privacidad</span></mat-checkbox></p>
+              <!--<p><mat-checkbox formControlName="susc_boletin">Deseo suscribirme al boletín de exphotel</mat-checkbox></p>-->
+            </div>
+
+          </form>
+
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="btn-row mb-4">
+            <button mat-flat-button color="accent" class="btn-round btn-sm" (click)="onSubmit()" [disabled]="wait">Editar plan</button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </ng-template>
+
+  </div>
+</ng-container>
+
+<ng-template #message_emloyee>
+  <div class="container pt-5 px-md-5">
+    <mat-card class="text-center">
+      <mat-card-title>Suscripción expirada</mat-card-title>
+      <mat-card-content>
+        <p class="my-4">Tu suscripción expiró el día <span class="date">{{currentUser.supplier?.current_period_end | date:'dd/MM/yyyy' }}</span>, comunícate con tu administrador para renovarla.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</ng-template>

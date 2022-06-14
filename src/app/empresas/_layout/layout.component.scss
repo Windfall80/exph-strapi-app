@@ -1,0 +1,39 @@
+app-header{
+  position: relative;
+  width: 100vw;
+  z-index: 2;
+}
+
+mat-sidenav-container{
+  flex-grow: 1;
+  background-color: transparent;
+
+  mat-sidenav{
+    filter: drop-shadow(2px 0px 2px rgba(64, 148, 171, 0.12));
+    @media(max-width: 599px) {
+      &.mat-sidenav-fixed{
+        top: 92px!important;
+      }
+    }
+  }
+
+  mat-sidenav-content{
+    //min-height: 100vh;
+    min-height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+
+    .content-wrapper{
+      //margin-top: 100px;
+    }
+
+    @media(max-width: 599px) {
+      min-height: calc(100vh - 92px)!important;
+      .content-wrapper{
+        margin-top: 92px;
+      }
+    }
+  }
+}
+
+footer{ }

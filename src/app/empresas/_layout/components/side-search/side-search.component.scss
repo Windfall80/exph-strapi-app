@@ -1,0 +1,117 @@
+.container-sidebar{
+  display: flex;
+  flex-direction: column;
+  //min-height: calc(100vh - 100px);
+  min-height: 100%;
+  width: var(--app-sidebar-width);
+  padding: 0!important;
+  margin: 0!important;
+
+  @media(max-width: 599px) {
+    //min-height: calc(100vh - 92px)!important;
+    min-height: 100%;
+  }
+
+  & > div{
+    padding: 1rem;
+  }
+
+  h4.row-title{
+    margin-bottom: 0.75em;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 13px;
+    /* gris-muy-oscuro */
+    color: #5A6A6F;
+  }
+
+  .search-row{
+    padding: 1em;
+    background: var(--app-amarillo-claro);
+
+    .search-field{
+      width: 100%;
+
+      ::ng-deep{
+        .mat-form-field-wrapper {
+          padding-bottom: 0;
+        }
+        .mat-form-field-outline{
+          transition: none!important;
+        }
+        .mat-form-field-prefix{
+          top: .45em;
+          left: -5px;
+        }
+        .mat-form-field-infix {
+          border-top-width: 0;
+          padding: 1em 0 0.75em 0;
+        }
+      }
+    }
+  }
+
+  .fav-row{
+    display: flex;
+    justify-content: center;
+  }
+
+  .cat-row{
+    mat-selection-list{
+      margin-left: -1rem;
+      margin-right: -1rem;
+
+      mat-list-option{
+        height: 2em;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 13px;
+        /* cyan */
+        color: #00AAD3;
+
+        &:focus {
+          background: none;
+        }
+      }
+    }
+  }
+
+  mat-expansion-panel{
+    border-radius: 0;
+
+    mat-expansion-panel-header{
+      display: flex;
+      padding-left: 0;
+      padding-right: 0;
+
+      ::ng-deep {
+        .mat-expansion-indicator{
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+      }
+
+
+      div{
+        flex-grow: 1;
+        mat-list-option{
+          height: 36px;
+        }
+      }
+    }
+
+    ::ng-deep {
+      .mat-expansion-panel-body {
+        padding: 0 14px 16px;
+      }
+    }
+
+  }
+
+}
+
+

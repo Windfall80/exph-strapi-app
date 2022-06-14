@@ -1,0 +1,58 @@
+<header class="app-header-shadow">
+  <div class="logo-cont">
+    <a routerLink="/empresas">
+      <img class="logo" src="assets/logo.png">
+    </a>
+  </div>
+  <mat-toolbar>
+    <mat-toolbar-row class="tbr tbr-primary">
+      <div class="flex-spacer"></div>
+
+       
+
+      <div class="flex-spacer d-none d-xxl-block"></div>
+      <div>
+       
+        <!-- usuario -->
+        <button class="user-btn" mat-button [matMenuTriggerFor]="menuUser">
+          <div class="user-btn-cont">
+            <app-user-image class="me-2" [img_url]="'assets/user.png'"></app-user-image>
+            <span class="d-none d-xxl-block">{{ currentUser?.username || '-' }}</span>
+            <mat-icon aria-hidden="false">expand_more</mat-icon>
+          </div>
+        </button>
+        <mat-menu #menuUser="matMenu" xPosition="before">
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Cerrar sesión</span>
+          </button>
+        </mat-menu>
+      </div>
+
+
+    </mat-toolbar-row>
+    <mat-toolbar-row class="tbr tbr-secondary">
+      <nav class="navbar navbar-expand-md navbar-light">
+        <div class="container-fluid">
+          <button mat-icon-button (click)="snav.toggle()" [hidden]="sidebar == 'none'"><mat-icon>menu</mat-icon></button>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-none d-sm-block d-md-none">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+            </div>
+ 
+          </div>
+        </div>
+      </nav>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</header>

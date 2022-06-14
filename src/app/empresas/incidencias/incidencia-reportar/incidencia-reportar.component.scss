@@ -1,0 +1,61 @@
+.mat-dialog-title{
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+
+  /* azul-marino */
+  color: var(--app-azul-marino);
+}
+
+mat-dialog-content{
+  /* parrafos-cajas */
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+
+  /* gris-muy-oscuro */
+  color: #5A6A6F;
+
+  label{
+    display: block;
+    margin-bottom: 8px;
+    margin-left: 6px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    display: flex;
+    align-items: center;
+
+    /* gris-muy-oscuro */
+    color: #5A6A6F;
+  }
+
+  h3{
+    text-align: center;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+
+    /* azul-marino */
+    color: #062EBD;
+  }
+
+  mat-form-field{
+    min-width: 100%;
+  }
+}
+
+mat-dialog-actions{
+  button{
+    min-width: 103px;
+  }
+}

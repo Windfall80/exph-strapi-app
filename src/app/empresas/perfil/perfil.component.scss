@@ -1,0 +1,198 @@
+mat-card{
+  /* modal-shadow */
+  box-shadow: 0px 5px 5px rgba(64, 148, 171, 0.24)!important;
+  border-radius: 31px;
+
+  .image-cont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img{
+      width: 120px;
+      height: 120px;
+      border: 1px solid rgba(151, 188, 197, 0.4);
+      border-radius: 100px;
+      filter: drop-shadow(0px 5px 5px rgba(64, 148, 171, 0.24));
+    }
+  }
+
+  .detalles-cont{
+    .breadcrumbs{
+      margin-bottom: 0.5em;
+      /* breadcrumbs */
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      /* cyan */
+      color: #00AAD3;
+    }
+
+    .titulo{
+      margin-bottom: 0.3em;
+      /* titulos-cajas */
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 30px;
+      /* azul-marino */
+      color: #062EBD;
+    }
+
+    .ratings{
+      display: flex;
+      align-items: center;
+
+      span{
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 13px;
+        /* dark-gray */
+        color: #999D9E;
+      }
+    }
+
+    .descripcion-corta{
+      /* parrafos-cajas */
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 15px;
+      /* dark-gray */
+      color: #999D9E;
+
+      a{
+        /* cyan */
+        color: #00AAD3;
+      }
+    }
+  }
+
+  .pm-row{
+    h4.row-title{
+      margin-bottom: 0.75em;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 11px;
+      line-height: 13px;
+      /* gris-muy-oscuro */
+      color: #5A6A6F;
+    }
+  }
+
+  .stats{
+    .stat{
+      display: flex;
+      align-items: center;
+
+      mat-icon{
+        width: 50px;
+        height: 47px;
+      }
+
+      span{
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 29px;
+        color: #00AAD3;
+      }
+
+      label{
+        max-width: 100px;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+
+        /* gris-muy-oscuro */
+        color: #5A6A6F;
+      }
+    }
+  }
+
+  .plan{
+    .plan-info{
+      text-align: center;
+
+      .plan-tipo{
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 22px;
+        color: var(--app-blue-cyan);
+        margin-bottom: 5px;
+      }
+      .plan-precio{
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 29px;
+        margin-bottom: 5px;
+        color: var(--app-amarillo-claro);
+      }
+      .plan-duracion{
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 13px;
+        color: var(--app-gris-muy-oscuro);
+
+        margin-bottom: 0;
+        max-width: 150px;
+      }
+    }
+
+    mat-list.plan-perks{
+      mat-list-item{
+        height: auto;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 15px;
+        color: var(--app-gris-muy-oscuro);
+        ::ng-deep{
+          .mat-list-item-content{
+            padding: 0;
+          }
+        }
+
+        mat-icon{
+          color: var(--app-cyan);
+        }
+      }
+    }
+
+    .plan-btn{
+      button{
+        width: 200px;
+      }
+    }
+  }
+}
+
+.contact{
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  color: #5A6A6F;
+
+  a{
+    color: #00AAD3;
+  }
+}

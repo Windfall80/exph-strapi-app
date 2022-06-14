@@ -1,0 +1,7 @@
+<ul class="sm-list">
+  <li class="sm-list-header"><span>{{group.label}}</span></li>
+  <div class="dropdown-divider"></div>
+  <li *ngFor="let link of group.links">
+    <a class="dropdown-item" [routerLink]="link.url? link.url : link.category? '/empresas/catalogo/category/'+link.category.slug: null">{{link.label}}</a>
+  </li>
+</ul>

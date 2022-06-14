@@ -1,0 +1,336 @@
+<div class="container-fluid pt-5 px-md-5">
+  <!-- title bar -->
+  <div class="row align-items-end">
+    <div class="col-lg page-title">
+      <h1>Editar mi pefíl</h1>
+      <p>Modifica los datos de tu cuenta</p>
+    </div>
+    <div class="col-lg page-actions">
+    </div>
+  </div>
+</div>
+
+<!-- form container -->
+<div class="container px-md-5" *ngIf="formGroup">
+  <form [formGroup]="formGroup" class="edit-form py-4 px-lg-5">
+    <div class="row py-3">
+      <div class="col-auto mx-auto">
+        <app-file-field class="profile-picture"
+          [form]="formGroup"
+          field="profile_picture"
+          placeholder="Adjuntar Foto de perfíl"
+          hint="Jpg, Png.- 150X150px*"
+          accept="image/png, image/jpeg"
+          [showPreview]="true"
+          [filePlaceholder]="profile.profile_picture"
+          direction="row"
+        ></app-file-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- USER BLOCK -->
+    <section [formGroup]="userGroup" class="py-4" *ngIf="userGroup">
+        <div class="row gx-5 px-lg-4">
+          <div class="form-group col-md-6">
+            <label for="username" class="form-label">
+              Nombre de Usuario<span class="input-req">*</span>
+              <mat-icon class="input-info" aria-hidden="false" matTooltip="Entre 6 y 20 caracteres (letras a-z, numeros 0-9 y caracteres -_ )" matTooltipPosition="above">info</mat-icon>
+            </label>
+            <mat-form-field appearance="outline">
+              <input matInput type="text" id="username" formControlName="username" placeholder="Usuario">
+                <mat-error *ngIf="userGroup.get('username')?.hasError('required')">Ingrese nombre de usuario.</mat-error>
+                <mat-error *ngIf="userGroup.get('username')?.hasError('pattern')">Nombre de usuario invalido.</mat-error>
+                <mat-error *ngIf="userGroup.get('username')?.hasError('unique')">Nombre de usuario no disponible.</mat-error>
+                <mat-error *ngIf="userGroup.get('username')?.hasError('connection')">Error de conexion al servidor.</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row gx-5 px-lg-4">
+          <div class="form-group col-md-6">
+            <label for="email" class="form-label">Correo electrónico<span class="input-req">*</span></label>
+            <mat-form-field appearance="outline">
+              <input matInput type="email" id="email" formControlName="email" placeholder="Corrreo@correo.mx">
+                <mat-error *ngIf="userGroup.get('email')?.hasError('required')">Ingrese direccion de correo electronico.</mat-error>
+                <mat-error *ngIf="userGroup.get('email')?.hasError('email') || userGroup.get('email')?.hasError('pattern')">Ingrese direccion de correo electronico valida.</mat-error>
+                <mat-error *ngIf="userGroup.get('email')?.hasError('unique')">Direccion de correo electronico no disponible.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="re_email" class="form-label">Confirmar Correo electrónico<span class="input-req">*</span></label>
+            <mat-form-field appearance="outline">
+              <input matInput type="email" id="re_email" formControlName="re_email" placeholder="Corrreo@correo.mx">
+                <mat-error *ngIf="userGroup.get('re_email')?.hasError('required')">Confirmar direccion de correo electronico.</mat-error>
+                <mat-error *ngIf="userGroup.get('re_email')?.hasError('email')">Ingrese direccion de correo electronico valida.</mat-error>
+                <mat-error *ngIf="userGroup.get('re_email')?.hasError('mustMatch')">Direcciones de correo electronico no coinciden.</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row gx-5 px-lg-4">
+          <div class="form-group col-md-6">
+            <label for="password" class="form-label">Contraseña<span class="input-req">*</span></label>
+            <mat-form-field appearance="outline">
+              <input matInput type="password" id="password" formControlName="password" placeholder="***********">
+                <mat-error *ngIf="userGroup.get('password')?.hasError('required')">Ingrese contraseña.</mat-error>
+                <mat-error *ngIf="userGroup.get('password')?.hasError('minlength')">Contraseña muy corta, ingrese al menos 6 caracteres.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="re_password" class="form-label">Confirmar Contraseña<span class="input-req">*</span></label>
+            <mat-form-field appearance="outline">
+              <input matInput type="password" id="re_password" formControlName="re_password" placeholder="***********">
+                <mat-error *ngIf="userGroup.get('re_password')?.hasError('required')">Confirmar contraseña.</mat-error>
+                <mat-error *ngIf="userGroup.get('re_password')?.hasError('mustMatch')">Las contraseñas no coinciden.</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+    </section>
+    <mat-divider *ngIf="userGroup"></mat-divider>
+
+    <div class="row py-4 px-lg-4">
+      <div class="form-group col">
+        <label class="form-label">Área principal<span class="input-req">*</span></label>
+        <div class="row">
+          <div class="col-auto">
+            <mat-form-field appearance="outline">
+              <mat-select id="main_category" formControlName="main_category" placeholder="Categoría principal" (selectionChange)="categoryChange($event)" disableOptionCentering>
+                <mat-option *ngFor="let op of categories" [value]="op.id">{{op.name}}</mat-option>
+              </mat-select>
+                <mat-error *ngIf="formGroup.get('main_category')?.hasError('required')">Seleccione el area principal de su empresa.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-auto">
+            <mat-form-field appearance="outline">
+              <mat-select id="categories" formControlName="categories" placeholder="Categorías secundarias" multiple disableOptionCentering>
+                <mat-option *ngFor="let op of sub_categories" [value]="op.id">{{op.name}}</mat-option>
+              </mat-select>
+                <mat-error *ngIf="formGroup.get('categories')?.hasError('required')">Seleccione al menos un area secundaria.</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="row gx-5 py-4 px-lg-4">
+      <div class="form-group col-md-5">
+        <label class="form-label">Métodos de pago</label>
+        <mat-chip-list class="payment-options" formControlName="payment_methods" selectable multiple>
+          <mat-chip #c="matChip" *ngFor="let op of payment_methods" [value]="op.id" (click)="toggleSelection(c)">{{ op.name }}</mat-chip>
+        </mat-chip-list>
+        <div *ngIf="formGroup.get('payment_methods')?.touched">
+          <mat-error *ngIf="formGroup.get('payment_methods')?.hasError('required')">Seleccione al menos un método de pago.</mat-error>
+        </div>
+      </div>
+      <div class="form-group col-md-7">
+        <label class="form-label">Plazos de pago</label>
+        <mat-chip-list class="payment-options" formControlName="payment_terms" selectable multiple>
+          <mat-chip #c="matChip" *ngFor="let op of payment_terms" [value]="op.id" (click)="toggleSelection(c)">{{ op.name }}</mat-chip>
+        </mat-chip-list>
+        <div *ngIf="formGroup.get('payment_terms')?.touched">
+          <mat-error *ngIf="formGroup.get('payment_terms')?.hasError('required')">Seleccione al menos un plazo de pago.</mat-error>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="row py-4 px-lg-4">
+      <div class="form-group col-12">
+        <label for="description_short" class="form-label">Descripción Corta<span class="input-req">*</span></label>
+        <mat-form-field appearance="outline">
+          <input matInput id="description_short" formControlName="description_short" placeholder="Añade resumen o descripcion corta de tu empresa">
+            <mat-error *ngIf="formGroup.get('description_short')?.hasError('required')">Agregue una descripción corta de su empresa.</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-12">
+        <label for="description" class="form-label">Descripción<span class="input-req">*</span></label>
+        <mat-form-field appearance="outline">
+          <textarea matInput id="description" formControlName="description" rows="6" placeholder="Añade información general y cetificaciones para tus posibles clientes"></textarea>
+            <mat-error *ngIf="formGroup.get('description')?.hasError('required')">Agregue una descripción de su empresa.</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <section class="py-4 px-lg-4">
+      <div class="row gx-5 pe-lg-4">
+        <div class="form-group col-md-6">
+          <label for="name" class="form-label">Nombre comercial<span class="input-req">*</span></label>
+          <mat-form-field appearance="outline">
+            <input matInput id="name" formControlName="name" placeholder="Nombre">
+              <mat-error *ngIf="formGroup.get('name')?.hasError('required')">Ingrese nombre comercial de su empresa.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="rfc" class="form-label">RFC<span class="input-req">*</span></label>
+          <mat-form-field appearance="outline">
+            <input matInput id="rfc" formControlName="rfc" placeholder="RFC">
+              <mat-error *ngIf="formGroup.get('rfc')?.hasError('required')">Ingrese RFC.</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row gx-5 pe-lg-4">
+        <div class="form-group col-md-6">
+          <label for="representative_name" class="form-label">Nombre del representante de la empresa<span class="input-req">*</span><mat-icon class="input-info" aria-hidden="false"  matTooltip="La persona que estará a cargo de la cuenta en ExpoHotel Hive y con la que contactaremos en caso de algún inconveniente." matTooltipPosition="above">info</mat-icon></label>
+          <mat-form-field appearance="outline">
+            <input matInput id="representative_name" formControlName="representative_name" placeholder="Nombre del representante">
+              <mat-error *ngIf="formGroup.get('representative_name')?.hasError('required')">Ingrese nombre del representate.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="business_name" class="form-label">Razón social<span class="input-req">*</span></label>
+          <mat-form-field appearance="outline">
+            <input matInput id="business_name" formControlName="business_name" placeholder="Razón social">
+              <mat-error *ngIf="formGroup.get('business_name')?.hasError('required')">Ingrese razón social.</mat-error>
+            </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row gx-5 pe-lg-4">
+        <div class="form-group col-md-6">
+          <label for="address" class="form-label">Calle y Número<span class="input-req">*</span></label>
+          <mat-form-field appearance="outline">
+            <input matInput id="address" formControlName="address" placeholder="Calle y Número">
+              <mat-error *ngIf="formGroup.get('address')?.hasError('required')">Ingrese calle y numero.</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <div class="row gx-3 pe-lg-5">
+            <div class="form-group col-6">
+              <label for="interior_number" class="form-label">N° Interior</label>
+              <mat-form-field appearance="outline">
+                <input matInput id="interior_number" formControlName="interior_number" placeholder="00">
+                  <mat-error *ngIf="formGroup.get('interior_number')?.hasError('required')">Ingrese numero interior.</mat-error>
+            </mat-form-field>
+            </div>
+            <div class="form-group col-6">
+              <label for="postal_code" class="form-label">C.P.<span class="input-req">*</span></label>
+              <mat-form-field appearance="outline">
+                <input matInput id="postal_code" formControlName="postal_code" placeholder="00000">
+                  <mat-error *ngIf="formGroup.get('postal_code')?.hasError('required')">Ingrese codigo postal.</mat-error>
+            </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row gx-3">
+        <div class="form-group col-md-4">
+          <label for="country" class="form-label">País<span class="input-req">*</span></label>
+          <mat-form-field appearance="outline">
+            <input matInput id="country" formControlName="country" placeholder="País">
+              <mat-error *ngIf="formGroup.get('country')?.hasError('required')">Ingrese país.</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="state" class="form-label">Estado<span class="input-req">*</span></label>
+          <mat-form-field appearance="outline">
+            <input matInput id="state" formControlName="state" placeholder="Estado">
+              <mat-error *ngIf="formGroup.get('state')?.hasError('required')">Ingrese estado.</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="city" class="form-label">Ciudad<span class="input-req">*</span></label>
+          <mat-form-field appearance="outline">
+            <input matInput id="city" formControlName="city" placeholder="Ciudad">
+              <mat-error *ngIf="formGroup.get('city')?.hasError('required')">Ingrese ciudad.</mat-error>
+            </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row gx-3">
+        <div class="form-group col-md-4">
+          <label for="municipality" class="form-label">Municipio<span class="input-req">*</span></label>
+          <mat-form-field appearance="outline">
+            <input matInput id="municipality" formControlName="municipality" placeholder="Municipio">
+            <!--<mat-select id="municipality" formControlName="municipality" placeholder="Municipio" disableOptionCentering>
+              <mat-option *ngFor="let m of municipios" [value]="m.id">{{m.name}}</mat-option>
+            </mat-select>-->
+              <mat-error *ngIf="formGroup.get('municipality')?.hasError('required')">Ingrese municipio.</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="neighborhood" class="form-label">Colonia<span class="input-req">*</span></label>
+          <mat-form-field appearance="outline">
+            <input matInput id="neighborhood" formControlName="neighborhood" placeholder="Colonia">
+              <mat-error *ngIf="formGroup.get('neighborhood')?.hasError('required')">Ingrese colonia.</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="phone" class="form-label">Télefono<span class="input-req">*</span></label>
+          <mat-form-field appearance="outline">
+            <input matInput id="phone" formControlName="phone" placeholder="Télefono">
+              <mat-error *ngIf="formGroup.get('phone')?.hasError('required')">Ingrese teléfono</mat-error>
+            </mat-form-field>
+        </div>
+      </div>
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <div class="row justify-content-evenly gx-4 gy-2 py-4">
+      <div class="col-auto">
+        <app-file-field
+          [form]="formGroup"
+          field="representative_id"
+          placeholder="ID de persona física"
+          hint="PDF, JPG o PNG"
+          accept="image/png, image/jpeg, application/pdf"
+          [showStatus]="true"
+          [filePlaceholder]="profile.representative_id"
+          direction="col"
+        ></app-file-field>
+      </div>
+      <div class="col-auto">
+        <app-file-field
+          [form]="formGroup"
+          field="fiscal_situation"
+          placeholder="Constancia de situación fiscal"
+          hint="PDF, JPG o PNG"
+          accept="image/png, image/jpeg, application/pdf"
+          [showStatus]="true"
+          [filePlaceholder]="profile.fiscal_situation"
+          direction="col"
+        ></app-file-field>
+      </div>
+      <!--<div class="col-auto">
+        <app-file-field
+          [form]="formGroup"
+          field="constitutive_act"
+          placeholder="Acta Constitutiva"
+          hint="PDF, JPG o PNG"
+          accept="image/png, image/jpeg, application/pdf"
+          [showStatus]="true"
+          [filePlaceholder]="profile.constitutive_act"
+          direction="col"
+        ></app-file-field>
+      </div>-->
+      <!--<div class="col-auto">
+        <app-file-field
+          [form]="formGroup"
+          field="address_proof"
+          placeholder="Comprobante de domicilio"
+          hint="PDF, JPG o PNG"
+          accept="image/png, image/jpeg, application/pdf"
+          [showStatus]="true"
+          [filePlaceholder]="profile.address_proof"
+          direction="col"
+        ></app-file-field>
+      </div>-->
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="d-flex justify-content-between py-5 px-lg-4 btn-row">
+      <button type="button" mat-flat-button color="primary" class="btn-round btn-sm" routerLink="..">Cancelar</button>
+      <button type="button" mat-flat-button color="accent" class="btn-round btn-sm" [disabled]="wait" (click)="onSubmit()">Guardar</button>
+    </div>
+  </form>
+</div>

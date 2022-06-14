@@ -1,0 +1,89 @@
+<h2 mat-dialog-title class="text-center">{{data.title}}</h2>
+<mat-dialog-content class="pb-3">
+  <p>{{data.text}}</p>
+
+  <!-- text-input -->
+  <ng-container *ngIf="data.input == 'normal'">
+    <mat-divider></mat-divider>
+    <div class="row justify-content-center pt-3">
+      <div class="col-sm-8">
+        <label for="field" *ngIf="data.inputLabel">{{data.inputLabel}}</label>
+        <mat-form-field appearance="outline">
+          <input matInput id="field" [(ngModel)]="value" [type]="data.inputType!" [placeholder]="data.inputPlaceholder!">
+        </mat-form-field>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- textarea-input -->
+  <ng-container *ngIf="data.input == 'textarea'">
+    <mat-divider></mat-divider>
+    <div class="row justify-content-center pt-3">
+      <div class="col-sm-11">
+        <label for="field" *ngIf="data.inputLabel">{{data.inputLabel}}</label>
+        <mat-form-field appearance="outline">
+          <textarea matInput id="field" rows="6" [(ngModel)]="value" [placeholder]="data.inputPlaceholder!"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- select-input -->
+  <ng-container *ngIf="data.input == 'select'">
+    <mat-divider></mat-divider>
+    <div class="row justify-content-center pt-3">
+      <div class="col-sm-8">
+        <label for="field" *ngIf="data.inputLabel">{{data.inputLabel}}</label>
+        <mat-form-field appearance="outline">
+          <mat-select id="field" [(ngModel)]="value" [placeholder]="data.inputPlaceholder!" [multiple]="data.multiple" disableOptionCentering>
+            <mat-option *ngFor="let op of data.inputOptions" [value]="op.id">{{op.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- pills-input -->
+  <ng-container *ngIf="data.input == 'pills'">
+    <mat-divider></mat-divider>
+    <div class="row justify-content-center pt-3">
+      <h3 *ngIf="data.inputLabel">{{data.inputLabel}}</h3>
+      <div class="col-sm-10">
+        <mat-chip-list selectable [multiple]="data.multiple" (change)="setValue($event)">
+          <mat-chip #c="matChip" *ngFor="let op of data.inputOptions" [value]="op.id" (click)="toggleSelection(c)">{{op.name}}</mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- details-input for when selectin "other" option -->
+  <ng-container *ngIf="data.showDetails && data.showDetails!(value)">
+    <div class="row justify-content-center pt-3">
+      <div class="col-sm-11">
+        <mat-form-field appearance="outline">
+          <textarea matInput id="details" rows="6" [(ngModel)]="details" [placeholder]="data.inputPlaceholder!"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </ng-container>
+
+</mat-dialog-content>
+<mat-divider></mat-divider>
+
+
+
+<mat-dialog-actions class="row justify-content-center py-3">
+  <div class="col-auto">
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-flat-button
+      color='accent'
+      class="btn-round"
+      [mat-dialog-close]="data.input? {isConfirmed: true, value: value, details: details}:true"
+      [disabled]="data.inputRequired && !value"
+      cdkFocusInitial
+    >{{data.confirmButtonText}}</button>
+  </div>
+  <div class="col-auto">
+    <button mat-flat-button color='primary' class="btn-round" mat-dialog-close *ngIf="data.showCancelButton">{{data.cancelButtonText}}</button>
+  </div>
+</mat-dialog-actions>

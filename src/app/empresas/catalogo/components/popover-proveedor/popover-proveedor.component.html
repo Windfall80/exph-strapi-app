@@ -1,0 +1,22 @@
+<div class="popover-content px-3 py-2" (click) = "$event.stopPropagation()">
+  <!-- image -->
+  <app-profile-picture [profile_picture]="supplier.profile_picture"></app-profile-picture>
+  <!-- name -->
+  <div>
+    <p class="mb-1">{{ supplier.name }}</p>
+    <div class="ratings d-flex" *ngIf="reloaded">
+      <ngx-stars
+        [color]="'#DFBF03'"
+        [initialStars]="supplier.rating"
+        [size]="1"
+        [maxStars]="5"
+        [customStarIcons]="matStars"
+        [readonly]="true">
+      </ngx-stars>
+      <span>({{supplier.rating_count||'-'}})</span>
+    </div>
+
+  </div>
+  <!-- action -->
+  <a mat-flat-button color="accent" class="btn-round btn-sm" routerLink="/empresas/catalogo/proveedores/{{ supplier.id }}">Ver Perfil</a>
+</div>

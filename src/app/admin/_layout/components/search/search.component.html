@@ -1,0 +1,33 @@
+<form class="search-form d-flex" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="outline" class="search-field w-100">
+    <button type="submit" matPrefix mat-icon-button color="primary" class="btn-search">
+      <mat-icon>search</mat-icon>
+    </button>
+
+    <input matInput placeholder="Buscar" formControlName="_q" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+
+      <mat-option *ngFor="let option of filteredOptions" routerLink="/empresas/catalogo/producto/{{option.id}}" heigth="25">
+        <div class="service-opt-cont">
+          <ng-container *ngIf="option.image; else placeholder">
+            <img class="service-opt-img" [src]="option.image.formats.small? publicUrl(option.image.formats.small.url) : publicUrl(option.image.url)" height="25">
+          </ng-container>
+          <ng-template #placeholder>
+            <img  class="service-opt-img" [src]="assetUrl('assets/image-placeholder.png')">
+          </ng-template>
+          {{option.name}}
+        </div>
+      </mat-option>
+      <mat-option *ngIf="filteredOptions?.length == 0" disabled>
+        No hay resultados de busqueda
+      </mat-option>
+
+    </mat-autocomplete>
+
+    <div matSuffix>
+      <mat-icon class="btn-clear" (click)="clear()" [hidden]="!formGroup.get('_q')?.value">clear</mat-icon>
+    </div>
+  </mat-form-field>
+
+
+</form>

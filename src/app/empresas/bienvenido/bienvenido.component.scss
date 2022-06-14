@@ -1,0 +1,48 @@
+.container{
+  @media (min-width: 992px){ max-width: calc(763px + var(--bs-gutter-x,.75rem)*2); }
+}
+
+mat-card {
+  border-radius: 30px;
+
+  h2{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 150.19%;
+    text-align: center;
+    color: var(--app-blue-cyan);
+  }
+
+  p{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 126.69%;
+    text-align: center;
+    color: var(--app-gris-muy-oscuro);
+
+    span{
+      font-weight: 600;
+      color: var(--app-cyan);
+    }
+  }
+
+  iframe{
+    border-radius: 20px;
+    background-color: rgba($color: #000000, $alpha: 0.25);
+  }
+
+  video{
+    border-radius: 20px;
+    background-color: rgba($color: #000000, $alpha: 0.25);
+    max-width: 100%;
+  }
+
+  a{
+    width: 220px;
+    max-width: 100%;
+  }
+}

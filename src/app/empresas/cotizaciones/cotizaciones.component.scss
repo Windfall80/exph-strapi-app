@@ -1,0 +1,102 @@
+.search-form{
+
+  .form-group{
+    label{
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 15px;
+      color: var(--app-gris-muy-oscuro);
+    }
+
+    mat-form-field{
+      display: block;
+      width: 130px;
+      max-width: 100%;
+
+      &.search-name{
+        width: 330px;
+
+        &::ng-deep{
+          .mat-form-field-prefix{
+            align-self: center;
+          }
+        }
+      }
+
+      &.search-user{
+        width: 156px;
+      }
+      mat-icon{
+        color: var(--app-amarillo-claro);
+      }
+    }
+  }
+}
+
+.actions-form{
+  .form-group{
+    label{
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 15px;
+      color: var(--app-gris-muy-oscuro);
+    }
+  }
+}
+
+table.mat-table {
+  display: table;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  filter: drop-shadow(0px 5px 5px rgba(64, 148, 171, 0.24));
+
+  ::ng-deep{
+    .mat-header-cell {
+      background-color: var(--app-blue-cyan);
+      color: #FFF;
+    }
+    .mat-row:nth-child(2n+1){
+      background-color: #FFFFFF;
+    }
+    .mat-row:not(:nth-child(2n+1)){
+      background-color:#F6F9FA;
+    }
+  }
+
+  .mat-cell {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    cursor: pointer;
+  }
+
+  .actions-cell{
+    cursor: unset;
+    mat-badge-medium.mat-badge-above .mat-badge-content {
+      top: unset;
+      right: unset;
+    }
+  }
+
+}
+
+span.status-count{
+  display: inline-block;
+  text-align: center;
+  min-width: 23px;
+  padding: 0.25em 0.5em;
+  border-radius: 50%;
+
+  background-color: var(--app-gris-muy-oscuro);
+  color: #FFFFFF;
+
+  &.open{
+    background-color: var(--app-amarillo-claro);
+    color: #FFFFFF;
+  }
+}

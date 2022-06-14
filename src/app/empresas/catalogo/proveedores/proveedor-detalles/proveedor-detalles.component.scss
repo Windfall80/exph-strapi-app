@@ -1,0 +1,123 @@
+mat-card{
+  /* modal-shadow */
+  box-shadow: 0px 5px 5px rgba(64, 148, 171, 0.24)!important;
+  border-radius: 17px;
+
+  .image-cont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img{
+      width: 120px;
+      height: 120px;
+      border: 1px solid rgba(151, 188, 197, 0.4);
+      border-radius: 100px;
+      filter: drop-shadow(0px 5px 5px rgba(64, 148, 171, 0.24));
+    }
+  }
+
+  .detalles-cont{
+
+    .titulo{
+      margin-bottom: 0.3em;
+      /* titulos-cajas */
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 30px;
+      /* azul-marino */
+      color: #062EBD;
+    }
+
+    .ratings{
+      display: flex;
+      align-items: center;
+
+      span{
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 13px;
+        /* dark-gray */
+        color: #999D9E;
+      }
+    }
+
+    .descripcion-corta{
+      /* parrafos-cajas */
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 15px;
+      /* dark-gray */
+      color: #999D9E;
+
+      a{
+        /* cyan */
+        color: #00AAD3;
+      }
+    }
+  }
+
+  .pm-row{
+    h4.row-title{
+      margin-bottom: 0.75em;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 11px;
+      line-height: 13px;
+      /* gris-muy-oscuro */
+      color: #5A6A6F;
+    }
+  }
+
+  .descripcion-larga{
+    h4{
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 22px;
+
+      /* azul-marino */
+      color: #062EBD;
+    }
+
+    p{
+      white-space: pre-line;
+      /* parrafos-cajas */
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 15px;
+
+      /* dark-gray */
+      color: #999D9E;
+    }
+  }
+}
+
+.prod-list-container{
+  max-width: 992px;
+
+  .product-list{
+    .product-item{
+      .check{
+        padding: 25px 15px;
+        /* gray-trans */
+        background: rgba(151, 188, 197, 0.4);
+        border-radius: 10px 0 0 10px;
+
+        &.selected{
+          background: var(--app-amarillo-claro);
+        }
+      }
+    }
+  }
+}

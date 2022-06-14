@@ -1,0 +1,11 @@
+<ng-container *ngIf="profile_picture; else placeholder_img">
+  <ng-container *ngIf="profile_picture.formats?.thumbnail; else default_img">
+    <img [src]="publicUrl(profile_picture.formats.thumbnail.url)">
+  </ng-container>
+  <ng-template #default_img>
+    <img [src]="publicUrl(profile_picture.url)">
+  </ng-template>
+</ng-container>
+<ng-template #placeholder_img>
+  <img [src]="assetUrl('assets/image-placeholder-2.png')">
+</ng-template>

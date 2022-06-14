@@ -1,0 +1,98 @@
+<div class="container-fluid pt-5 px-md-5">
+  <!-- title bar -->
+  <div class="row align-items-end">
+    <div class="col-lg page-title">
+    </div>
+    <div class="col-lg page-actions">
+      <div class="d-flex flex-column align-items-center mb-2">
+        <button mat-raised-button color="primary" class="btn-round btn-md" routerLink="editar" [disabled]="currentUser?.role?.type != 'administrator'">
+          <mat-icon>edit</mat-icon>
+          Editar mi Perfil
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <mat-card id="card-perfil" class="app-modal-shadow py-4 mt-4" *ngIf="profile">
+    <mat-card-content>
+      <div class="row flex-column flex-md-row justify-content-center mb-3">
+        <!-- proveedor-info -->
+        <div class="col-auto">
+          <div class="row align-items-center">
+            <div class="col-auto image-cont pb-3 pb-md-2">
+              <img [src]="profile.profile_picture? publicUrl(profile.profile_picture.url) : assetUrl('assets/image-placeholder-2.png')">
+            </div>
+            <div class="col detalles-cont">
+              <!--<h2 class="breadcrumbs">{{ profile.main_category?.name }}</h2>-->
+              <h1 class="titulo">{{ profile.name }}</h1>
+              <!--<div class="ratings">
+                <ngx-stars
+                  [color]="'#DFBF03'"
+                  [initialStars]="3.5"
+                  [size]="1"
+                  [maxStars]="5"
+                  [customStarIcons]="matStars"
+                  [readonly]="true">
+                </ngx-stars>
+                <span>102 Cotizaciones</span>
+              </div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <mat-divider inset></mat-divider>
+
+      <div class="row justify-content-evenly gy-3 py-3 stats">
+        <div class="col-auto stat">
+          <mat-icon svgIcon="cotizacion-pending"></mat-icon>
+          <span class="mx-3">{{ requested!=null? (requested) : '-'}}</span>
+          <label>Cotizaciones Solicitadas</label>
+        </div>
+        <div class="col-auto stat">
+          <mat-icon svgIcon="cotizacion-active"></mat-icon>
+          <span class="mx-3">{{ accepted!=null? (accepted) : '-'}}</span>
+          <label>Cotizaciones Aceptadas</label>
+        </div>
+        <div class="col-auto stat">
+          <mat-icon svgIcon="cotizacion-reject"></mat-icon>
+          <span class="mx-3">{{ rejected!=null? (rejected) : '-'}}</span>
+          <label>Cotizaciones Descartadas</label>
+        </div>
+        <div class="col-auto">
+          <button mat-flat-button (click)="exportReport()">
+            <mat-icon>download</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <mat-divider inset></mat-divider>
+
+      <div class="row justify-content-center align-items-center gx-4 py-3 plan">
+        <div class="col-auto plan-info">
+          <h5 class="plan-tipo">{{ profile.plan?.name }}</h5>
+          <h4 class="plan-precio">
+            <ng-container *ngIf="profile.price?.price == 0">Gratis</ng-container>
+            <ng-container *ngIf="profile.price && profile.price.price > 0">{{ profile.price.price | currency }}</ng-container>
+          </h4>
+          <p class="plan-duracion">Suscrito hasta el {{ profile.current_period_end | date:'dd/MM/yyyy' }}</p>
+        </div>
+        <mat-list class="col-auto plan-perks dense">
+          <mat-list-item *ngFor="let pp of profile.plan.perks" [hidden]="pp.target && pp.target!='supplier'">
+            <mat-icon matListIcon>check_circle</mat-icon>{{pp.description}}
+          </mat-list-item>
+        </mat-list>
+        <div class="col-auto plan-btn">
+          <button mat-flat-button color="accent" class="btn-round" routerLink="plan" [disabled]="currentUser?.role?.type != 'administrator'">Modificar Plan</button>
+        </div>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+  <div class="row justify-content-center pt-4">
+    <div class="col-auto">
+      <p class="contact text-center">Sí deseas cancelar tu cuenta , manda un email a <br> <a href="mailto:contacto@exphotel.mx">contacto@exphotel.mx</a></p>
+    </div>
+  </div>
+</div>

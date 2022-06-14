@@ -1,0 +1,131 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '~@angular/material' as mat;
+// Plus imports for other components in your app.
+
+$my-custom-typography: mat.define-typography-config(
+  $font-family: '"Montserrat", sans-serif',
+);
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core($my-custom-typography);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+$yellow-orange-palette: (
+    50 : #fdf8e0,
+    100 : #f9ecb3,
+    200 : #f5e080,
+    300 : #f1d44d,
+    400 : #eeca26,
+    500 : #ebc100,
+    600 : #e9bb00,
+    700 : #e5b300,
+    800 : #e2ab00,
+    900 : #dd9e00,
+    A100 : #ffffff,
+    A200 : #fff0d1,
+    A400 : #ffe09e,
+    A700 : #ffd785,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #FFFFFF,
+        600 : #FFFFFF,
+        700 : #FFFFFF,
+        800 : #FFFFFF,
+        900 : #FFFFFF,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$cyan-palette: (
+    50 : #e0f5fa,
+    100 : #b3e6f2,
+    200 : #80d5e9,
+    300 : #4dc4e0,
+    400 : #26b7da,
+    500 : #00aad3,
+    600 : #00a3ce,
+    700 : #0099c8,
+    800 : #0090c2,
+    900 : #007fb7,
+    A100 : #e0f4ff,
+    A200 : #ade2ff,
+    A400 : #7ad1ff,
+    A700 : #61c8ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$exph-app-primary: mat.define-palette($yellow-orange-palette);
+$exph-app-accent: mat.define-palette($cyan-palette);
+
+// The warn palette is optional (defaults to red).
+$exph-app-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$exph-app-theme: mat.define-light-theme((
+  color: (
+    primary: $exph-app-primary,
+    accent: $exph-app-accent,
+    warn: $exph-app-warn,
+  ),
+  density: -3
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($exph-app-theme);
+
+/** CSS Variables **/
+:root {
+  --app-sidebar-width: 250px;
+
+  --app-text-primary: #1136A8;
+  --app-text-red: #E44D5F;
+  --app-text-cyan: #00AAD3;
+  --app-text-gris-oscuro: #5A6A6F;
+  --app-header-bg-primary: #1136A8;
+  --app-header-bg-secondary: #FFFFFF;
+  --app-outlined-input-bg: #FFFFFF;
+
+  --app-cyan: #00AAD3;
+  --app-blue-cyan: #1136A8;
+  --app-azul-marino: #062EBD;
+  --app-amarillo-claro: #DFBF03;
+  --app-gris: #999D9E;
+  --app-gris-muy-oscuro: #5A6A6F;
+  --app-gris-claro: #C4C4C4;
+  --app-rojo: #E44D5F;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Montserrat, Roboto, "Helvetica Neue", sans-serif; }

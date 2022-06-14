@@ -1,0 +1,71 @@
+.info-row{
+  /* labels */
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+  /* gris-muy-oscuro */
+  color: #5A6A6F;
+
+  .link-col{
+    font-weight: 500;
+    /* dark-gray */
+    color: #999D9E;
+  }
+
+  span, a{
+    /* cyan */
+    color: #00AAD3;
+  }
+}
+
+.actions-form{
+  .form-group{
+    label{
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 15px;
+      color: var(--app-gris-muy-oscuro);
+    }
+
+    mat-checkbox{
+      line-height: 40px;
+    }
+  }
+}
+
+table.mat-table {
+  margin-top: 2em;
+  display: table;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  filter: drop-shadow(0px 5px 5px rgba(64, 148, 171, 0.24));
+
+  ::ng-deep{
+    .mat-header-cell {
+      background-color: var(--app-blue-cyan);
+      color: #FFF;
+    }
+    .mat-row:nth-child(2n+1){
+      background-color: #FFFFFF;
+    }
+    .mat-row:not(:nth-child(2n+1)){
+      background-color:#F6F9FA;
+    }
+  }
+
+  .mat-cell {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+
+    &.mat-column-email{
+      color: #00AAD3;
+    }
+  }
+
+}

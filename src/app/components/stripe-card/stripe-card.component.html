@@ -1,0 +1,154 @@
+<hr>
+<div class="tarjetas py-3">
+  <mat-radio-group aria-label="Select an option"  >
+    <div class="container element" *ngFor="let item of test?.data">
+      <div class="row">
+        <div class="col d-flex align-items-center">
+          <div class="container card" [ngClass]="{selectCard: selectCardtmp == item.id}">
+            <div class="row no-gutters align-items-center">
+              <div class="col-auto pe-1">
+                <mat-radio-button [value]="item.id" (change)="changeCard($event)"></mat-radio-button>
+              </div>
+              <div class="col-auto px-1"><!-- {{item.card.brand}} -->
+                <img class="logo" src="assets/cards/visa.jpg" *ngIf="item.card.brand == 'visa'" height="25">
+                <img class="logo" src="assets/cards/amex.jpg" *ngIf="item.card.brand == 'amex'" height="25">
+                <img class="logo" src="assets/cards/mc.png" *ngIf="item.card.brand == 'mastercard'" height="25">
+              </div>
+              <div class="col-auto card-info">
+                <h5 class="m-0">**** **** **** {{item.card.last4}}</h5>
+                <span>Vence {{item.card.exp_month}}/{{item.card.exp_year}}</span>
+              </div>
+            </div>
+          </div>
+          <a mat-icon-button color="warn" class="delete_card ms-1" (click)="deleteCard(item.id)">
+            <mat-icon>delete_forever</mat-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+  </mat-radio-group>
+</div>
+<hr>
+<div class="agregarTarjeta">
+  <form novalidate (ngSubmit)="createToken()" [formGroup]="stripeTest">
+    <!--<ngx-stripe-card
+      [options]="cardOptions"
+      [elementsOptions]="elementsOptions"
+    ></ngx-stripe-card>-->
+
+    <div ngxStripeCardGroup class="py-5" [elementsOptions]="elementsOptions">
+
+      <div class="row gx-3">
+        <div class="form-group col-md-6 order-md-2">
+          <label for="name" class="form-label">Nombre del titular<span class="input-req">*</span></label>
+          <mat-form-field appearance="outline">
+            <input matInput id="name" formControlName="name" placeholder="Nombre">
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6 order-md-1">
+          <label for="cc_number" class="form-label" >No de tarjeta<span class="input-req">*</span></label>
+          <div class="mat-form-field mat-form-field-appearance-outline stipe-form-field" #cardNumber>
+            <div class="mat-form-field-wrapper">
+              <div class="mat-form-field-flex align-items-center">
+                <div class="mat-form-field-outline">
+                  <div class="mat-form-field-outline-start"></div>
+                  <div class="mat-form-field-outline-gap"></div>
+                  <div class="mat-form-field-outline-end"></div>
+                </div>
+                <div class="mat-form-field-outline mat-form-field-outline-thick">
+                  <div class="mat-form-field-outline-start"></div>
+                  <div class="mat-form-field-outline-gap"></div>
+                  <div class="mat-form-field-outline-end"></div>
+                </div>
+                <div class="mat-form-field-prefix ps-1" [ngSwitch]="cardBrand">
+                  <i *ngSwitchCase="'visa'" class="fab fa-cc-visa mat-icon notranslate material-icons mat-icon-no-color"></i>
+                  <i *ngSwitchCase="'mastercard'" class="fab fa-cc-mastercard mat-icon notranslate material-icons mat-icon-no-color"></i>
+                  <i *ngSwitchCase="'amex'" class="fab fa-cc-amex mat-icon notranslate material-icons mat-icon-no-color"></i>
+                  <i *ngSwitchCase="'discover'" class="fab fa-cc-discover mat-icon notranslate material-icons mat-icon-no-color"></i>
+                  <i *ngSwitchCase="'diners'" class="fab fa-cc-diners-club mat-icon notranslate material-icons mat-icon-no-color"></i>
+                  <i *ngSwitchCase="'jcb'" class="fab fa-cc-jcb mat-icon notranslate material-icons mat-icon-no-color"></i>
+                  <i *ngSwitchDefault class="fas fa-credit-card mat-icon notranslate material-icons mat-icon-no-color"></i>
+                </div>
+                <div class="mat-form-field-infix">
+                  <ngx-stripe-card-number [options]="cardOptions" (focus)="stripeFocus(cardNumber)" (blur)="stripeBlur(cardNumber)" (change)="stripeChangue($event, cardNumber)"></ngx-stripe-card-number>
+                </div>
+              </div>
+              <div class="mat-form-field-subscript-wrapper">
+                <div class="mat-form-field-hint-wrapper ng-trigger ng-trigger-transitionMessages ng-star-inserted" style="opacity: 1; transform: translateY(0%);">
+                  <div class="mat-form-field-hint-spacer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row gx-3">
+        <div class="form-group col-md-3">
+          <label for="cc_exp" class="form-label">Vencimiento<span class="input-req">*</span></label>
+          <div class="mat-form-field mat-form-field-appearance-outline stipe-form-field" #cardExpiry>
+            <div class="mat-form-field-wrapper">
+              <div class="mat-form-field-flex">
+                <div class="mat-form-field-outline">
+                  <div class="mat-form-field-outline-start"></div>
+                  <div class="mat-form-field-outline-gap"></div>
+                  <div class="mat-form-field-outline-end"></div>
+                </div>
+                <div class="mat-form-field-outline mat-form-field-outline-thick">
+                  <div class="mat-form-field-outline-start"></div>
+                  <div class="mat-form-field-outline-gap"></div>
+                  <div class="mat-form-field-outline-end"></div>
+                </div>
+                <div class="mat-form-field-infix">
+                  <ngx-stripe-card-expiry [options]="cardOptions" (focus)="stripeFocus(cardExpiry)" (blur)="stripeBlur(cardExpiry)" (change)="stripeChangue($event, cardExpiry)"></ngx-stripe-card-expiry>
+                </div>
+              </div>
+              <div class="mat-form-field-subscript-wrapper">
+                <div class="mat-form-field-hint-wrapper ng-trigger ng-trigger-transitionMessages ng-star-inserted" style="opacity: 1; transform: translateY(0%);">
+                  <div class="mat-form-field-hint-spacer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="cc_cvc" class="form-label">CVC<span class="input-req">*</span></label>
+          <div class="mat-form-field mat-form-field-appearance-outline stipe-form-field" #cardCvc>
+            <div class="mat-form-field-wrapper">
+              <div class="mat-form-field-flex">
+                <div class="mat-form-field-outline">
+                  <div class="mat-form-field-outline-start"></div>
+                  <div class="mat-form-field-outline-gap"></div>
+                  <div class="mat-form-field-outline-end"></div>
+                </div>
+                <div class="mat-form-field-outline mat-form-field-outline-thick">
+                  <div class="mat-form-field-outline-start"></div>
+                  <div class="mat-form-field-outline-gap"></div>
+                  <div class="mat-form-field-outline-end"></div>
+                </div>
+                <div class="mat-form-field-infix">
+                  <ngx-stripe-card-cvc [options]="cardOptions" (focus)="stripeFocus(cardCvc)" (blur)="stripeBlur(cardCvc)" (change)="stripeChangue($event, cardCvc)"></ngx-stripe-card-cvc>
+                </div>
+              </div>
+              <div class="mat-form-field-subscript-wrapper">
+                <div class="mat-form-field-hint-wrapper ng-trigger ng-trigger-transitionMessages ng-star-inserted" style="opacity: 1; transform: translateY(0%);">
+                  <div class="mat-form-field-hint-spacer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto mx-auto">
+          <button type="submit" mat-flat-button color="accent" class="btn-round mt-4" style="margin-top: 10px;" [disabled]="wait">
+            Añadir método de pago
+          </button>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="error_msg">
+        <div class="col error">{{error_msg}}</div>
+      </div>
+    </div>
+  </form>
+</div>
+

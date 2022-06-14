@@ -1,0 +1,97 @@
+
+<h2 mat-dialog-title>Agregar Usario</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="userForm" class="user-form" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="username" class="form-label">
+          Nombre de Usuario<span class="input-req">*</span>
+          <mat-icon class="input-info" aria-hidden="false" matTooltip="Entre 6 y 20 caracteres (letras a-z, numeros 0-9 y caracteres -_ )" matTooltipPosition="above">info</mat-icon>
+        </label>
+        <mat-form-field appearance="outline">
+          <input matInput type="text" id="username" formControlName="username" placeholder="Usuario">
+            <mat-error *ngIf="userForm.get('username')?.hasError('required')">Ingrese nombre de usuario.</mat-error>
+            <mat-error *ngIf="userForm.get('username')?.hasError('pattern')">Nombre de usuario invalido.</mat-error>
+            <mat-error *ngIf="userForm.get('username')?.hasError('unique')">Nombre de usuario no disponible.</mat-error>
+            <mat-error *ngIf="userForm.get('username')?.hasError('connection')">Error de conexion al servidor.</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="area" class="form-label">Área<span class="input-req">*</span></label>
+        <mat-form-field appearance="outline">
+          <mat-select id="area" formControlName="area" placeholder="Categoría principal" disableOptionCentering>
+            <mat-option *ngFor="let op of areas" [value]="op.id">{{op.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="firstname" class="form-label">Nombre<span class="input-req">*</span></label>
+        <mat-form-field appearance="outline">
+          <input matInput id="firstname" formControlName="firstname" placeholder="Nombre">
+            <mat-error *ngIf="userForm.get('firstname')?.hasError('required')">Ingrese nombre de usuario.</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="lastname" class="form-label">Apellido<span class="input-req">*</span></label>
+        <mat-form-field appearance="outline">
+          <input matInput id="lastname" formControlName="lastname" placeholder="Apellido">
+            <mat-error *ngIf="userForm.get('lastname')?.hasError('lastname')">Ingrese apellido de usuario.</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="email" class="form-label">Correo electrónico<span class="input-req">*</span></label>
+        <mat-form-field appearance="outline">
+          <input matInput type="email" id="email" formControlName="email" placeholder="Corrreo@correo.mx ">
+            <mat-error *ngIf="userForm.get('email')?.hasError('required')">Ingrese direccion de correo electronico.</mat-error>
+            <mat-error *ngIf="userForm.get('email')?.hasError('email') || userForm.get('email')?.hasError('pattern')">Ingrese direccion de correo electronico valida.</mat-error>
+            <mat-error *ngIf="userForm.get('email')?.hasError('unique')">Direccion de correo electronico no disponible.</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="re_email" class="form-label">Confirmar Correo electrónico<span class="input-req">*</span></label>
+        <mat-form-field appearance="outline">
+          <input matInput type="email" id="re_email" formControlName="re_email" placeholder="Corrreo@correo.mx  ">
+            <mat-error *ngIf="userForm.get('re_email')?.hasError('required')">Confirmar direccion de correo electronico.</mat-error>
+            <mat-error *ngIf="userForm.get('re_email')?.hasError('email')">Ingrese direccion de correo electronico valida.</mat-error>
+            <mat-error *ngIf="userForm.get('re_email')?.hasError('mustMatch')">Direcciones de correo electronico no coinciden.</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="password" class="form-label">Contraseña<span class="input-req">*</span></label>
+        <mat-form-field appearance="outline">
+          <input matInput type="password" id="password" formControlName="password" placeholder="************">
+            <mat-error *ngIf="userForm.get('password')?.hasError('required')">Ingrese contraseña.</mat-error>
+            <mat-error *ngIf="userForm.get('password')?.hasError('minlength')">Contraseña muy corta, ingrese al menos 6 caracteres.</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="re_password" class="form-label">Confirmar Contraseña<span class="input-req">*</span></label>
+        <mat-form-field appearance="outline">
+          <input matInput type="password" id="re_password" formControlName="re_password" placeholder="************">
+            <mat-error *ngIf="userForm.get('re_password')?.hasError('required')">Confirmar contraseña.</mat-error>
+            <mat-error *ngIf="userForm.get('re_password')?.hasError('mustMatch')">Las contraseñas no coinciden.</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="checks-seccion text-center pt-3">
+      <p><mat-checkbox formControlName="tos">Entiendo que este usuario podra solicitar cotizaciones y ofertas a nombre de mi empresa.</mat-checkbox></p>
+    </div>
+
+    <div class="row justify-content-center buttons-row py-3">
+      <div class="col-auto">
+        <button mat-raised-button type="submit" class="btn-round" color="accent" [disabled]="wait">
+          <mat-icon>person_add</mat-icon>
+          Agregar Usuario
+        </button>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>

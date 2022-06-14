@@ -1,0 +1,154 @@
+mat-card{
+    /* white */
+    background: #FFFFFF;
+    /* modal-shadow */
+    box-shadow: 0px 5px 5px rgba(64, 148, 171, 0.24)!important;
+    border-radius: 10px;
+
+    mat-card-header{
+      mat-card-title{
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 15px;
+        display: flex;
+        align-items: center;
+        color: #062EBD;
+
+        mat-icon{
+          margin-right: 1em;
+        }
+      }
+
+      ::ng-deep{
+        .mat-card-header-text{
+          margin: 0;
+        }
+      }
+    }
+    mat-card-content{
+      position: relative;
+    }
+
+    &.card-empresa{
+      mat-card-header{
+        align-items: center;
+        justify-content: space-between;
+
+        .mat-card-title {
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 14px;
+          display: flex;
+          align-items: center;
+          /* azul-marino */
+          color: #062EBD;
+          margin-bottom: 0px;
+
+          img{
+            margin-right: 15px;
+            background: #FBFBFB;
+            border: 1px solid rgba(151, 188, 197, 0.4);
+            box-sizing: border-box;
+          }
+        }
+
+        .empresa-id{
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 11px;
+          line-height: 13px;
+          /* gris-muy-oscuro */
+          color: #5A6A6F;
+        }
+      }
+    }
+
+    &.card-info{
+      dl.list-info{
+        dt{
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 12px;
+          line-height: 15px;
+          color: var(--app-text-gris-oscuro);
+        }
+
+        dd{
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 12px;
+          line-height: 15px;
+          color: var(--app-text-cyan);
+
+          &.name{
+            color: var(--app-azul-marino);
+          }
+        }
+      }
+
+      .details{
+        h2{
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 12px;
+          line-height: 15px;
+          color: #062EBD;
+        }
+        p{
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 15px;
+          color: #5A6A6F;
+        }
+      }
+    }
+
+    .card-update{
+      .form-group{
+        &:not(.text-center){
+          label{
+            margin-left: 0.5em;
+            margin-right: -1.6em;
+          }
+        }
+        label{
+          margin-bottom: 0;
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 12px;
+          line-height: 15px;
+          /* gris-muy-oscuro */
+          color: var(--app-gris-muy-oscuro);
+
+          span.input-req{
+            margin-left: 0.3em;
+            color: var(--app-rojo);
+          }
+
+          mat-icon.input-info{
+            margin-left: 0.3em;
+            width: auto;
+            height: auto;
+            font-size: 15px;
+            line-height: 1em;
+            vertical-align: middle;
+            color: var(--app-cyan);
+          }
+        }
+        .mat-form-field{
+          width: 100%;
+        }
+      }
+    }
+  }
+

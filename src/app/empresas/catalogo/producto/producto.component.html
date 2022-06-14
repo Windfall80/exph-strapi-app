@@ -1,0 +1,72 @@
+<div class="container" *ngIf="service">
+  <div class="row align-items-center pt-4 pb-2 px-2 header-row">
+    <div class="col-auto">
+      <a mat-button class="back-link breadcrumbs" (click)="back()">
+        <mat-icon>arrow_back_ios</mat-icon>
+        {{ service.main_category?.name }}
+      </a>
+    </div>
+  </div>
+
+  <mat-card class="mt-4">
+    <mat-card-content>
+      <div class="row flex-column flex-md-row justify-content-center">
+        <!-- imagen -->
+        <div class="col-auto image-cont pb-3 pb-md-0">
+          <ng-container *ngIf="service.image; else placeholder">
+            <img [src]="publicUrl(service.image.url)">
+          </ng-container>
+          <ng-template #placeholder>
+            <img [src]="assetUrl('assets/image-placeholder.png')">
+          </ng-template>
+        </div>
+        <!-- detalles -->
+        <div class="col detalles-cont">
+          <div class="row pb-2">
+            <div class="col-auto me-auto pt-5">
+              <h1 class="titulo">{{ service.name }}</h1>
+            </div>
+            <div class="col-auto actions">
+              <div class="proveedor">
+                <!--<a appTippy [tippyOptions]="{html: '#proveedor-popover', arrow: true, interactive: true, trigger: 'click', theme: 'light'}">Nombre Proveedor</a>-->
+                <a [matMenuTriggerFor]="menu" panelClass="popover">{{ service.supplier?.name }}</a>
+
+                <button mat-icon-button color="primary" class="fav-btn" [class.isfav]="service.isFav" (click)="service.isFav? removeFav(): addFav()" [disabled]="wait">
+                  <mat-icon *ngIf="!service.isFav">favorite_border</mat-icon>
+                  <mat-icon *ngIf="service.isFav">favorite</mat-icon>
+                </button>
+              </div>
+              <button mat-flat-button color="accent" class="btn-round btn-sm" (click)="request()">Cotizar</button>
+            </div>
+          </div>
+
+          <div class="descripcion-larga">
+            <h4>Descripción</h4>
+            <p>{{ service.description }}</p>
+          </div>
+          <mat-divider class="mb-3" inset></mat-divider>
+
+          <!-- met-pago -->
+          <div class="pm-row mb-3" *ngIf="supplier">
+            <h4 class="row-title">Métodos de pago</h4>
+            <mat-chip-list class="payment-options">
+              <mat-chip #c="matChip" *ngFor="let op of supplier.payment_methods" [value]="op.id" [selectable]="false" selected>{{op.name}}</mat-chip>
+            </mat-chip-list>
+          </div>
+
+          <!-- met-plazo -->
+          <div class="pm-row" *ngIf="supplier">
+            <h4 class="row-title">Plazos de pago</h4>
+            <mat-chip-list class="payment-options">
+              <mat-chip #c="matChip" *ngFor="let op of supplier.payment_terms" [value]="op.id" [selectable]="false" selected>{{op.name}}</mat-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<mat-menu #menu="matMenu" yPosition="above" xPosition="before" class="app-popover">
+  <app-popover-proveedor *ngIf="supplier" [supplier]="supplier!"></app-popover-proveedor>
+</mat-menu>

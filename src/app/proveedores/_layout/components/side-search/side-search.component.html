@@ -1,0 +1,54 @@
+<div class="container-sidebar">
+  <div class="search-row">
+    <mat-form-field appearance="outline" class="search-field">
+      <span matPrefix (click)="$event.preventDefault()">
+        <button mat-icon-button color="primary">
+          <mat-icon>search</mat-icon>
+        </button>
+      </span>
+      <input matInput placeholder="Buscar">
+    </mat-form-field>
+  </div>
+
+  <!-- favoritos -->
+  <div class="fav-row">
+    <mat-checkbox class="example-margin"
+                  [checked]="false"
+                  color="primary"
+                  indeterminate="false">
+      Ver  solo favoritos
+    </mat-checkbox>
+  </div>
+  <mat-divider></mat-divider>
+
+  <!-- categorias -->
+  <div class="cat-row">
+    <h4 class="row-title">Categorías</h4>
+    <ul>
+      <li><a>Subcategoría (100)</a></li>
+      <li><a>Subcategoría nombre muy largo (100)</a></li>
+      <li><a>Subcategoría (100)</a></li>
+      <li><a>Subcategoría (100)</a></li>
+      <li><a>Subcategoría (100)</a></li>
+    </ul>
+  </div>
+  <mat-divider></mat-divider>
+
+  <!-- met-pago -->
+  <div class="pm-row">
+    <h4 class="row-title">Métodos de pago</h4>
+    <mat-chip-list class="payment-options" selectable multiple (change)="setMethods($event)">
+      <mat-chip #c="matChip" *ngFor="let op of methods" [value]="op.id" (click)="toggleSelection(c)">{{op.name}}</mat-chip>
+    </mat-chip-list>
+  </div>
+  <mat-divider></mat-divider>
+
+  <!-- met-plazo -->
+  <div class="pm-row">
+    <h4 class="row-title">Plazos de pago</h4>
+    <mat-chip-list class="payment-options" selectable multiple (change)="setInstallments($event)">
+      <mat-chip #c="matChip" *ngFor="let op of installment" [value]="op.id" (click)="toggleSelection(c)">{{op.name}}</mat-chip>
+    </mat-chip-list>
+  </div>
+  <mat-divider></mat-divider>
+</div>

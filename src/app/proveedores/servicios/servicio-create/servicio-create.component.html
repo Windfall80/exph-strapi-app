@@ -1,0 +1,81 @@
+<div class="container mt-5">
+  <mat-card id="card-registro" class="app-modal-shadow p-0">
+    <mat-card-title class="px-c py-ct">
+      <h1>Agrega un nuevo Servicio</h1>
+      <p>Da de alta la información necesaria para que te encuentren clientes potenciales</p>
+    </mat-card-title>
+    <mat-card-content class="p-5">
+      <form [formGroup]="serviceForm" class="service-form px-lg-5">
+        <div class="row justify-content-between gx-5 py-3">
+          <div class="form-group col-xl-5 mt-xl-4">
+            <label for="name" class="form-label">Nombre del servicio<span class="input-req">*</span></label>
+            <mat-form-field appearance="outline">
+              <input matInput id="name" formControlName="name" placeholder="Ej. Alitas de Pollo">
+                <mat-error *ngIf="serviceForm.get('name')?.hasError('required')">Ingresa un nombre para tu servicio.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group col-xl-auto">
+            <app-file-field
+              [form]="serviceForm"
+              field="image"
+              placeholder="Fotografía"
+              hint="Jpg, Png"
+              accept="image/png, image/jpeg"
+              [showPreview]="true"
+              [showStatus]="true"
+              statusPosition="after"
+              direction="row"
+            ></app-file-field>
+          </div>
+        </div>
+        <mat-divider inset></mat-divider>
+
+        <div class="row gx-3 py-3">
+          <div class="form-group col">
+            <label class="form-label">Área principal<span class="input-req">*</span></label>
+            <div class="row">
+              <div class="col-auto">
+                <mat-form-field appearance="outline">
+                  <mat-select id="main_category" formControlName="main_category" placeholder="Categoría principal" (selectionChange)="categoryChange($event)" disableOptionCentering>
+                    <mat-option *ngFor="let op of categories" [value]="op.id">{{op.name}}</mat-option>
+                  </mat-select>
+                    <mat-error *ngIf="serviceForm.get('main_category')?.hasError('required')">Selecciona el area principal de tu servicio.</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-auto">
+                <mat-form-field appearance="outline">
+                  <mat-select id="categories" formControlName="categories" placeholder="Categorías secundarias" multiple disableOptionCentering>
+                    <mat-option *ngFor="let op of sub_categories" [value]="op.id" [disabled]="op.id == serviceForm.get('main_category')?.value">{{op.name}}</mat-option>
+                  </mat-select>
+                    <mat-error *ngIf="serviceForm.get('categories')?.hasError('required')">Selecciona al menos un area secundaria.</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <mat-divider inset></mat-divider>
+
+        <div class="row py-3">
+          <div class="form-group col">
+            <label for="description" class="form-label">Añade detalles<span class="input-req">*</span></label>
+            <mat-form-field appearance="outline">
+              <textarea matInput id="description" formControlName="description" rows="6" placeholder="Escribe aquí las especificaciones de tu servicio"></textarea>
+                <mat-error *ngIf="serviceForm.get('name')?.hasError('required')">Ingresa una descripcion de tu servicio.</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="checks-seccion text-center">
+          <p><mat-checkbox formControlName="open">Acepto recibir solicitudes de las empresas registradas en ExpHotel Hive que concuerden con las especificaciones de mi servicio.</mat-checkbox></p>
+        </div>
+
+        <div class="row py-3 justify-content-center btn-row">
+          <div class="col-auto">
+            <button mat-flat-button color="accent" class="btn-round send-btn" (click)="onSubmit()">Agregar</button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+

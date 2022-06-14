@@ -1,0 +1,103 @@
+<header class="app-header-shadow">
+  <div class="logo-cont">
+    <a routerLink="/empresas">
+      <img class="logo" src="assets/logo.png">
+    </a>
+  </div>
+  <mat-toolbar>
+    <mat-toolbar-row class="tbr tbr-primary">
+      <div class="flex-spacer"></div>
+
+      <app-search></app-search>
+
+      <div class="flex-spacer d-none d-xxl-block"></div>
+      <div>
+        <!-- cotizador -->
+        <button class="btn-round btn-cotizador" mat-raised-button color="primary" routerLink="/empresas/cotizador">Cotizador</button>
+        <!-- notificaciones -->
+        <button class="notifications-btn" mat-button [matMenuTriggerFor]="menuNotif">
+          <mat-icon [matBadge]="_unread" [matBadgeHidden]="!_unread" matBadgePosition="before">notifications</mat-icon>
+        </button>
+        <mat-menu #menuNotif="matMenu" class="notifications-panel" xPosition="after">
+          <app-notifications-list></app-notifications-list>
+        </mat-menu>
+        <!-- usuario -->
+        <button class="user-btn" mat-button [matMenuTriggerFor]="menuUser">
+          <div class="user-btn-cont">
+            <app-user-image class="me-2" [image]="currentUser?.company?.profile_picture"></app-user-image>
+            <span class="d-none d-xxl-block">{{ currentUser?.username || '-' }}</span>
+            <mat-icon aria-hidden="false">expand_more</mat-icon>
+          </div>
+        </button>
+        <mat-menu #menuUser="matMenu" xPosition="before">
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Cerrar sesión</span>
+          </button>
+        </mat-menu>
+      </div>
+
+
+    </mat-toolbar-row>
+    <mat-toolbar-row class="tbr tbr-secondary">
+      <nav class="navbar navbar-expand-md navbar-light">
+        <div class="container-fluid">
+          <button mat-icon-button (click)="snav.toggle()" [hidden]="sidebar == 'none'"><mat-icon>menu</mat-icon></button>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-none d-sm-block d-md-none">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+            </div>
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" tabindex="-1" routerLink="/empresas">Inicio</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link" id="navDepartamentos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Departamentos <i class="fas fa-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu ddm-lvl-0" aria-labelledby="navDepartamentos" >
+                  <ng-container *ngIf="departaments_menu">
+                    <li *ngFor="let item of departaments_menu.body" [ngSwitch]="item.__component">
+                      <ng-container *ngSwitchCase="'menu.dropdown'">
+                        <a class="dropdown-item" [routerLink]="item.url? item.url : item.category? '/empresas/catalogo/category/'+item.category.slug: null">{{item.label}} <i class="fas fa-angle-right"></i></a>
+                        <div class="dropdown-menu dropdown-submenu ddm-lvl-1">
+                          <div class="sm-header"><h6>{{item.label}}</h6></div>
+                          <div class="sm-body">
+                            <app-dropdown-links-group *ngFor="let group of item.groups" [group]="group"></app-dropdown-links-group>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'menu.link'">
+                        <a class="dropdown-item" [routerLink]="item.url? item.url : item.category? '/empresas/catalogo/category/'+item.category.slug: null">{{item.label}}</a>
+                      </ng-container>
+                    </li>
+                  </ng-container>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" tabindex="-1" routerLink="/empresas/catalogo/ofertas-relampago">Ofertas Relámpago</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" tabindex="-1" routerLink="/empresas/catalogo/proveedores">Directorio de Proveedores</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" tabindex="-1">Ayuda</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</header>

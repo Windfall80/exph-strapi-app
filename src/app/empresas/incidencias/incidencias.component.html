@@ -1,0 +1,119 @@
+<div class="container-fluid pt-5 px-md-5">
+  <!-- title bar -->
+  <div class="row">
+    <div class="col page-title">
+      <h1>Incidencias</h1>
+      <p>Reportes de errores</p>
+    </div>
+    <div class="col page-actions">
+      <button mat-raised-button color="primary" class="btn-round" (click)="openReport()">
+        <mat-icon>info</mat-icon>
+        Reportar Un Problema
+      </button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+  <!-- filter form -->
+  <div class="row search-form">
+    <!--<div class="form-group col-auto mt-2">
+      <label for="tipo" class="form-label">Ordenar</label>
+      <mat-form-field appearance="outline">
+        <mat-select id="order" placeholder="Más recientes" disableOptionCentering>
+        </mat-select>
+      </mat-form-field>
+    </div>-->
+    <div class="form-group col-auto mt-2">
+      <label for="tipo" class="form-label">Estado</label>
+      <mat-form-field appearance="outline">
+        <mat-select id="order" placeholder="Todas" disableOptionCentering [(ngModel)]="filters.status" (selectionChange)="applyFilter()">
+          <mat-option [value]="null">Todas</mat-option>
+          <mat-option *ngFor="let op of statuses" [value]="op.id">{{ op.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form-group col-auto mt-2">
+      <label for="search_usuario" class="form-label">Usuario</label>
+      <mat-form-field appearance="outline" class="search-user">
+        <mat-select id="search_usuario" placeholder="Nombre de usuario" disableOptionCentering [(ngModel)]="filters.user" (selectionChange)="applyFilter()">
+          <mat-option [value]="null">Todas</mat-option>
+          <mat-option *ngFor="let op of users" [value]="op.id">{{ op.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form-group col-auto mt-2 pt-4">
+      <mat-checkbox [(ngModel)]="filters.unread" (change)="applyFilter()">Conversaciones sin leer</mat-checkbox>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+  <!-- table -->
+  <div class="row">
+    <div class="col">
+      <table mat-table [dataSource]="dataSource" matSort class="cotizacion-table">
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- User Column -->
+        <ng-container matColumnDef="user">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
+          <td mat-cell *matCellDef="let element"> {{element.user?.username}} </td>
+        </ng-container>
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+          <td mat-cell *matCellDef="let element"> {{element.created_at | date:'dd/MM/yyyy'}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Problema </th>
+          <td mat-cell *matCellDef="let element"> {{element.type?.name || '-'}} </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header> Estado </th>
+          <td mat-cell *matCellDef="let element" class="text-center">
+            <span class="pill pill-lg pill-{{element.status?.class}} mx-auto">{{ element.status?.name }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Badges Column -->
+        <ng-container matColumnDef="badges">
+          <th mat-header-cell *matHeaderCellDef class="text-end"></th>
+          <td mat-cell *matCellDef="let element" class="text-end">
+            <ng-container [ngSwitch]="element.status?.id">
+              <mat-icon svgIcon="mnsg" *ngSwitchCase="2" [matBadge]="element.chat_room?.unread_a" [matBadgeHidden]="!element.chat_room?.unread_a"></mat-icon>
+              <mat-icon svgIcon="mnsg-disable" *ngSwitchDefault  [matBadge]="element.chat_room?.unread_a" [matBadgeHidden]="!element.chat_room?.unread_a"></mat-icon>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element" class="text-end" (click)="$event.stopPropagation()">
+            <a mat-button color="primary" [routerLink]="element.id"><mat-icon>chevron_right</mat-icon></a>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            [routerLink]="row.id">
+        </tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="7">No tienes incidencias..</td>
+        </tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</div>

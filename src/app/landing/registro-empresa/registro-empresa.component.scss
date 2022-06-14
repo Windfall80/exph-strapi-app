@@ -1,0 +1,267 @@
+.container{
+  @media (min-width: 992px){ max-width: calc(840px + var(--bs-gutter-x,.75rem)*2); }
+}
+
+mat-card {
+  border-radius: 30px;
+  overflow: hidden;
+
+  mat-card-title{
+    background: linear-gradient( #1e232cad, #1e232cad ), url('~src/assets/banner-registro-empresas.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    h1{
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 28px;
+      display: flex;
+      align-items: center;
+
+      /* white */
+      color: #FFFFFF;
+    }
+    p{
+      max-width: 375px;
+      margin-bottom: 0;
+
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 126.69%;
+      /* or 18px */
+      /* white */
+      color: #FFFFFF;
+    }
+  }
+
+  mat-card-content{
+    mat-stepper{
+      ::ng-deep{
+        .mat-horizontal-content-container, .mat-horizontal-stepper-header-container {
+          overflow: hidden;
+          @media (max-width: 767px) {
+            padding-right: 0rem!important;
+            padding-left: 0rem!important;
+          }
+          @media (min-width: 768px) {
+            padding-right: 1.75rem!important;
+            padding-left: 1.75rem!important;
+          }
+          @media (min-width: 992px) {
+            padding-right: 3.75rem!important;
+            padding-left: 3.75rem!important;
+          }
+        }
+      }
+    }
+
+    .step-title{
+      /* titulares */
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 29px;
+      align-items: center;
+      text-align: center;
+
+      /* blue-cyan-gradient */
+      color: var(--app-blue-cyan);
+    }
+
+    .btn-row{
+      display: flex;
+      justify-content: space-between;
+
+      & > button:only-child {
+        margin-left: auto;
+      }
+    }
+  }
+}
+
+.registro-form{
+  margin-top: 3em;
+
+  .form-group{
+    &:not(.text-center){
+      label{
+        margin-left: 0.5em;
+        margin-right: -1.6em;
+      }
+    }
+    label{
+      margin-bottom: 0;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 15px;
+      /* gris-muy-oscuro */
+      color: var(--app-gris-muy-oscuro);
+
+      span.input-req{
+        margin-left: 0.3em;
+        color: var(--app-rojo);
+      }
+
+      mat-icon.input-info{
+        margin-left: 0.3em;
+        width: auto;
+        height: auto;
+        font-size: 15px;
+        line-height: 1em;
+        vertical-align: middle;
+        color: var(--app-cyan);
+      }
+    }
+    .mat-form-field{
+      width: 100%;
+    }
+  }
+
+  mat-button-toggle-group.planes-group{
+    display: contents;
+
+    mat-button-toggle{
+      width: 125px;
+      margin-left: auto!important;
+      margin-right: auto!important;
+
+      background: #FFFFFF;
+      border: 1px solid var(--app-gris-claro);
+      box-sizing: border-box;
+      border-radius: 50px;
+      overflow: hidden;
+
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 17px;
+      color: var(--app-gris-muy-oscuro);
+
+      &.mat-button-toggle-checked{
+        color: #FFF;
+        background-color: var(--app-cyan);
+        border: 1px solid var(--app-cyan);
+      }
+
+      &.mat-button-toggle-disabled{
+        background: #d1d1d1;
+      }
+
+      ::ng-deep{
+        .mat-button-toggle-label-content {
+          line-height: 30px;
+        }
+      }
+    }
+
+    .planes-row{
+      @media (max-width: 767px) {
+        margin-right: 0rem!important;
+        margin-left: 0rem!important;
+      }
+      @media (min-width: 768px) {
+        margin-right: -1.5rem!important;
+        margin-left: -1.5rem!important;
+      }
+      @media (min-width: 992px) {
+        margin-right: -3.5rem!important;
+        margin-left: -3.5rem!important;
+      }
+
+
+
+      & > div{
+        mat-card.plan-card{
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          min-height: 300px;
+          width: 235px;
+          background: #FFFFFF;
+          border: 1px solid rgba(151, 188, 197, 0.4);
+          box-sizing: border-box;
+          border-radius: 10px;
+          box-shadow: none;
+
+          &.selected{
+            filter: drop-shadow(0px 5px 5px rgba(64, 148, 171, 0.24));
+          }
+
+          .plan-info{
+            .plan-tipo{
+              font-family: Montserrat;
+              font-style: normal;
+              font-weight: bold;
+              font-size: 18px;
+              line-height: 22px;
+              margin-bottom: 5px;
+              color: var(--app-blue-cyan);
+            }
+            .plan-precio{
+              font-family: Montserrat;
+              font-style: normal;
+              font-weight: bold;
+              font-size: 24px;
+              line-height: 29px;
+              margin-bottom: 5px;
+              color: var(--app-amarillo-claro);
+            }
+            .plan-duracion{
+              font-family: Montserrat;
+              font-style: normal;
+              font-weight: 500;
+              font-size: 11px;
+              line-height: 13px;
+              color: var(--app-gris-muy-oscuro);
+              white-space: normal;
+            }
+
+            mat-list.plan-perks{
+              mat-list-item{
+                height: auto;
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 15px;
+                color: var(--app-gris-muy-oscuro);
+                ::ng-deep{
+                  .mat-list-item-content{
+                    padding: 0;
+                  }
+                }
+
+                mat-icon{
+                  color: var(--app-cyan);
+                }
+              }
+            }
+
+          }
+        }
+      }
+    }
+  }
+
+  .checks-seccion{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--app-gris-muy-oscuro);
+
+    span{
+      color: var(--app-cyan);
+    }
+  }
+}

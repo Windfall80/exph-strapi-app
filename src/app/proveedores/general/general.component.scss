@@ -1,0 +1,129 @@
+mat-card{
+  display:flex;
+  flex-direction: column;
+  border-radius: 10px;
+
+  mat-card-title{
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    min-height: 42px;
+    /* gris-muy-oscuro */
+    color: var(--app-gris-muy-oscuro);
+  }
+
+  mat-card-content{
+    position: relative;
+    flex-grow: 1;
+
+    mat-list, mat-nav-list{
+      .mat-list-item{
+        div.proveedor-logo{
+          overflow: hidden;
+          width: 30px;
+          height: 30px;
+          padding: 0;
+          border-radius: 30px;
+          border: 1px solid rgba(151, 188, 197, 0.4);
+          box-sizing: border-box;
+          background: #F2F2F2;
+          box-shadow: 0px 2px 3px rgba(64, 148, 171, 0.24);
+
+          ::ng-deep{
+            img{
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+
+        .proveedor-nombre{
+          margin-bottom: 0.25em;
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 12px;
+          line-height: 15px;
+          /* gris-muy-oscuro */
+          color: var(--app-gris-muy-oscuro);
+        }
+
+        .servicio-nombre{
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 15px;
+          /* dark-gray */
+          color: var(--app-gris);
+        }
+
+        div.list-item-end{
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+
+          span.date{
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 10px;
+            line-height: 12px;
+            /* dark-gray */
+            color: #999D9E;
+          }
+
+          span.user{
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 10px;
+            line-height: 12px;
+            margin-top: 3px;
+            /* cyan */
+            color: #00AAD3;
+          }
+
+          .list-item-utils{
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+
+            .pill{
+              height: 20px;
+              width: 75px;
+              margin-right: 8px;
+            }
+
+            mat-icon{
+              line-height: 27px;
+              height: 27px;
+              width: 27px;
+
+              ::ng-deep{
+                .mat-badge-content{
+                  top: 2px;
+                  right: -4px;
+                  font-size: 7px;
+                  line-height: 12px;
+                  width: 12px;
+                  height: 12px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  mat-card-actions{
+    text-align: right;
+  }
+}

@@ -1,0 +1,130 @@
+.step{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95px;
+  height: 108px;
+  background-image: url('~src/assets/hexagono-B.png'), url('~src/assets/icons/hex-frame.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 15px;
+
+  span{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 34px;
+    /* cyan */
+    color: var(--app-cyan);
+  }
+
+  &.step-gold{
+    background-image: url('~src/assets/hexagono-Y.png'), url('~src/assets/icons/hex-frame.svg');
+    span{
+      /* cyan */
+      color: var(--app-amarillo-claro);
+    }
+  }
+}
+
+mat-card{
+  width: 240px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background: #FFFFFF;
+  /* gray-trans */
+  border: 1px solid rgba(151, 188, 197, 0.4);
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: none!important;
+
+  mat-card-header{
+    min-height: 58px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+    mat-card-title{
+      /* titulares */
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 29px;
+      margin: 0;
+      /* blue-cyan-gradient */
+      color: #1136A8;
+    }
+  }
+
+  mat-card-content{
+    flex-grow: 1;
+
+    p{
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 11px;
+      line-height: 13px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+
+      /* gris-muy-oscuro */
+      color: #5A6A6F;
+    }
+
+    .notes{
+      display: flex;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      display: flex;
+      align-items: center;
+      /* gris-muy-oscuro */
+      color: #5A6A6F;
+
+      &.disable{
+        color: #C4C4C4;
+      }
+
+      .icon-cont{
+        padding-right: 15px;
+
+        mat-icon{
+          width: 50px;
+          height: 50px;
+
+          ::ng-deep{
+            .mat-badge-content {
+              top: 5px;
+              right: -10px;
+              width: 25px;
+              height: 25px;
+              line-height: 25px;
+            }
+          }
+        }
+      }
+
+    }
+  }
+
+  mat-card-actions{
+    display: flex;
+    flex-direction: column;
+
+    button{
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+  }
+}

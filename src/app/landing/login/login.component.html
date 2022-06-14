@@ -1,0 +1,43 @@
+<div class="container">
+  <mat-card class="login-card app-modal-shadow">
+
+      <mat-card-content>
+        <h1 class="text-center mt-5">Login</h1>
+        <form [formGroup]="loginForm" class="login-form" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="form-group col-md-10 mx-auto">
+              <label for="email" class="form-label">Correo electrónico<span class="input-req">*</span></label>
+              <mat-form-field appearance="outline">
+                <input matInput type="email" id="email" formControlName="email" placeholder="Correo@correo.mx" autocomplete="email">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-10 mx-auto">
+              <label for="password" class="form-label">Contraseña<span class="input-req">*</span></label>
+              <mat-form-field appearance="outline">
+                <input matInput type="password" id="password" formControlName="password" placeholder="**********" autocomplete="current-password">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="error-msgs text-center">
+            <p *ngFor="let m of errors">{{ m.id | translate: {default: m.message} }}</p>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-auto py-3">
+              <button type="submit" mat-flat-button color="accent" class="btn-round login-btn" [disabled]="wait">
+                <mat-spinner [diameter]="20" [hidden]="!wait"></mat-spinner> Login
+              </button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+
+  </mat-card>
+
+  <div class="text-center mt-2">
+    <a class="forgot-msg" routerLink="/forgot-password">¿Olvidaste tu contraseña?</a>
+  </div>
+</div>

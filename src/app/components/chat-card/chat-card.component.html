@@ -1,0 +1,39 @@
+<mat-card class="card-chat">
+  <mat-card-header>
+    <mat-card-title>
+      <a *ngIf="titleLink; else rawTitle" [routerLink]="titleLink">
+        <app-profile-picture-avatar [profile_picture]="titlePicture"></app-profile-picture-avatar>
+        {{ titleName }}
+      </a>
+      <ng-template #rawTitle>
+        <app-profile-picture-avatar [profile_picture]="titlePicture"></app-profile-picture-avatar>
+        {{ titleName }}
+      </ng-template>
+    </mat-card-title>
+    <mat-icon svgIcon="mnsg"></mat-icon>
+  </mat-card-header>
+  <mat-divider style="z-index: 1;"></mat-divider>
+  <mat-card-content class="chat-content" #scroll>
+    <div class="mx-auto my-auto" style="width: 100%; display: flex; flex-direction: column;">
+      <!-- messages -->
+      <div class="messaje-row" *ngFor="let item of messages" [ngClass]="[item.type == currentUser.type ? 'local' : 'remoto']">
+        <fieldset class="message" [class.self]="isSelfMessage(item)" [dir]="item.type == currentUser.type ? 'rtl' : 'ltr'">
+          <legend>{{ senderName(item) }}</legend>
+          <span dir="ltr">{{item.message}}</span>
+        </fieldset>
+        <div class="date" matTooltip="{{item.created_at | date:'dd/MM/yyyy hh:mma'}}" [matTooltipPosition]="item.type ==  currentUser.type ? 'left' : 'right'">
+          {{item.created_at | amLocale:'es'|amTimeAgo:false}}
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-actions>
+    <form [formGroup]="chatForm" (ngSubmit)="sendMessage()">
+      <mat-form-field id="send-msg-field" appearance="outline" [class.mat-form-field-disabled]="!canChat">
+        <input matInput [placeholder]="canChat? 'Ahora puedes enviar un mensaje':'Chat no disponible'" formControlName="chatMsg" [readonly]="!canChat">
+        <button type="submit" id="send-msg-btn" matSuffix mat-mini-fab color="primary" [disabled]="!canChat || !chatForm.get('chatMsg')?.value"><mat-icon>send</mat-icon></button>
+      </mat-form-field>
+    </form>
+  </mat-card-actions>
+</mat-card>

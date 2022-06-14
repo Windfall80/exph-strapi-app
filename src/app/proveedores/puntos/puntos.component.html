@@ -1,0 +1,80 @@
+<div class="container pt-5 px-md-5">
+  <!-- title bar -->
+  <div class="row justify-content-evenly align-items-center mb-4">
+    <div class="col-auto page-title">
+      <h1>Puntos Hive</h1>
+      <p>Consulta y canjea tus puntos de fidelidad</p>
+    </div>
+    <mat-card class="points-card px-4">
+      <div class="row g-0 align-items-center">
+        <div class="col-6 points">{{ points }}</div>
+        <div class="col-6 ps-2">Puntos Disponibles</div>
+      </div>
+    </mat-card>
+  </div>
+  <mat-divider></mat-divider>
+</div>
+
+<!-- exchangue ticket -->
+<div class="container px-md-5">
+  <form [formGroup]="exchangeForm" class="exchange-form py-4 px-lg-5 text-center">
+    <h5>Canjea tus puntos</h5>
+    <p>Selecciona la opción por la que quieras canjear tus puntos</p>
+    <div class="row justify-content-center align-items-center py-4">
+      <div class="col-auto form-group qty-group">
+        <mat-form-field appearance="outline" >
+          <input matInput type="number" step="1" id="qty" formControlName="qty" [min]="1" [max]="points / ticket_exchangue_price" placeholder="0">
+            <mat-error *ngIf="exchangeForm.get('qty')?.hasError('required')">Ingresa cantidad.</mat-error>
+            <mat-error *ngIf="exchangeForm.get('qty')?.hasError('min')">Minimo 1 pt.</mat-error>
+            <mat-error *ngIf="exchangeForm.get('qty')?.hasError('max')">No tienes puntos suficientes.</mat-error>
+        </mat-form-field>
+        <label class="ms-3" for="qty">Oferta Relámpago</label>
+      </div>
+      <div class="col-auto unit-price"><span>{{ ticket_exchangue_price || '-' }}</span> pt</div>
+    </div>
+
+
+    <div class="checks-seccion text-center">
+      <p><mat-checkbox formControlName="check">Al dar click en canjear aceptas el intercambio de tus puntos por la oferta seleccionada, no es reembolsable.</mat-checkbox></p>
+    </div>
+
+    <div class="row py-3 justify-content-center btn-row">
+      <div class="col-auto">
+        <button mat-flat-button color="accent" class="btn-round" (click)="onExchangue()" [disabled]="exchangeForm.invalid">Canjear</button>
+      </div>
+    </div>
+  </form>
+  <mat-divider></mat-divider>
+</div>
+
+<!-- purchase ticket -->
+<div class="container px-md-5">
+  <form [formGroup]="purchaseForm" class="exchange-form py-4 px-lg-5 text-center">
+    <h5>Comprar oferta</h5>
+    <p>Puedes comprar todas las ofertas que necesites</p>
+    <div class="row justify-content-center align-items-center py-4">
+      <div class="col-auto form-group qty-group">
+        <mat-form-field appearance="outline" >
+          <input matInput type="number" step="1" id="qty" formControlName="qty" [min]="1" placeholder="0">
+            <mat-error *ngIf="purchaseForm.get('qty')?.hasError('required')">Ingresa cantidad.</mat-error>
+            <mat-error *ngIf="purchaseForm.get('qty')?.hasError('min')">Minimo 1 pt.</mat-error>
+        </mat-form-field>
+        <label class="ms-3" for="qty">Oferta Relámpago</label>
+      </div>
+      <div class="col-auto unit-price"><span>${{ purchaseForm.value.qty*ticket_purchase_price }}</span></div>
+    </div>
+    <app-stripe-card (selectCard)="changeCard($event)"></app-stripe-card>
+    <hr>
+    <div class="checks-seccion text-center">
+      <p><mat-checkbox formControlName="check">Al dar click en comprar aceptas la compra de la oferta seleccionada, no es reembolsable.</mat-checkbox></p>
+    </div>
+
+    <div class="row py-3 justify-content-center btn-row">
+      <div class="col-auto">
+        <button mat-flat-button color="accent" class="btn-round" (click)="onPurchase()" [disabled]="purchaseForm.invalid">Comprar</button>
+      </div>
+    </div>
+  </form>
+
+
+</div>

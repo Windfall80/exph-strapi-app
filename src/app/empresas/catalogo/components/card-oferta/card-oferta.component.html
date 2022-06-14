@@ -1,0 +1,66 @@
+<mat-card>
+  <mat-card-content>
+    <div class="row flex-column flex-md-row justify-content-center">
+      <!-- imagen -->
+      <div class="col-auto image-cont pb-3 pb-md-0">
+        <ng-container *ngIf="offer.image; else placeholder">
+          <img [src]="offer.image.formats?.small? publicUrl(offer.image.formats.small.url) : publicUrl(offer.image.url)">
+        </ng-container>
+        <ng-template #placeholder>
+          <img [src]="assetUrl('assets/image-placeholder.png')">
+        </ng-template>
+      </div>
+      <!-- detalles -->
+      <div class="col detalles-cont">
+        <div class="row">
+          <div class="col-auto me-auto">
+            <h2 class="breadcrumbs">{{ offer.main_category?.name }}</h2>
+            <h1 class="titulo">{{ offer.name }}</h1>
+          </div>
+          <div class="col-auto actions">
+            <div class="proveedor">
+              <!--<a appTippy [tippyOptions]="{html: '#proveedor-popover', arrow: true, interactive: true, trigger: 'click', theme: 'light'}">Nombre Proveedor</a>-->
+              <a [matMenuTriggerFor]="menu" panelClass="popover">{{ offer.supplier?.name }}</a>
+
+              <button mat-icon-button color="primary" class="fav-btn" [class.isfav]="offer.isFav" (click)="offer.isFav? removeFav(): addFav()" [disabled]="wait">
+                <mat-icon *ngIf="!offer.isFav">favorite_border</mat-icon>
+                <mat-icon *ngIf="offer.isFav">favorite</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <p class="descripcion-corta">{{ offer.description | truncate:500:false }}</p>
+        <mat-divider class="mb-3" inset></mat-divider>
+
+        <div class="row align-items-center gy-2">
+          <div class="col-auto">
+            <dl class="row mt-3 mb-0">
+              <div class="col-auto d-flex">
+                <dt class="me-2">Precio:</dt>
+                <dd>{{ (offer.price|currency) || '-' }}</dd>
+              </div>
+              <div class="col-auto d-flex">
+                <dt class="me-2">Vence en:</dt>
+                <dd>{{ !expired()? (offer.expires_at|amLocale:'es'|amTimeAgo:true):'Vencida' }}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="col-auto ms-auto ">
+            <ng-container *ngIf="offer.request; else request_btn">
+              <h5 class="requested mt-2" matTooltip="{{ offer.request.created_at }}"><mat-icon color="primary">check</mat-icon> Oferta Solicitada</h5>
+            </ng-container>
+            <ng-template #request_btn>
+              <button mat-flat-button color="accent" class="btn-round btn-sm" (click)="request()" [disabled]="expired()">Solicitar</button>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-menu #menu="matMenu" yPosition="above" xPosition="before" class="app-popover">
+  <app-popover-proveedor [supplier]="offer.supplier!"></app-popover-proveedor>
+</mat-menu>

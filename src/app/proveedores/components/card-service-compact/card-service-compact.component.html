@@ -1,0 +1,37 @@
+<mat-card>
+  <mat-card-content>
+    <div class="row flex-column flex-md-row justify-content-center">
+      <!-- imagen -->
+      <div class="col-auto image-cont pb-3 pb-md-0">
+        <ng-container *ngIf="service.image; else placeholder">
+          <img [src]="service.image.formats.small? publicUrl(service.image.formats.small.url) : publicUrl(service.image.url)">
+        </ng-container>
+        <ng-template #placeholder>
+          <img [src]="assetUrl('assets/image-placeholder.png')">
+        </ng-template>
+      </div>
+      <!-- detalles -->
+      <div class="col detalles-cont">
+        <div class="row pb-2">
+          <div class="col-auto me-auto">
+            <h2 class="breadcrumbs">{{ service.main_category?.name }}</h2>
+            <h1 class="titulo">{{ service.name }}</h1>
+            <!--<h3 class="marca">Nombre de la marca</h3>-->
+          </div>
+          <div class="col-auto actions">
+            <a mat-flat-button color="accent" class="btn-round btn-sm" routerLink="{{service.id}}/update">Editar</a>
+          </div>
+        </div>
+        <p class="descripcion-corta">{{ service.description | truncate:80:false }} <a routerLink="{{ service.id }}">Ver más</a></p>
+        <div class="row">
+          <div class="col-auto not-published" *ngIf="!service.published_at">
+            NO PUBLICADO
+          </div>
+          <div class="col-auto ms-auto">
+            <button mat-button color="warn" class="btn-round btn-xs" (click)="delete()"><mat-icon>delete_forever</mat-icon> Borrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

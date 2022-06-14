@@ -1,0 +1,16 @@
+{
+  "PAGINATOR": {
+    "ITEMS_PER_PAGE": "Artículos por página",
+    "NEXT_PAGE": "Siguiente",
+    "PREVIOUS_PAGE": "Anterior",
+    "FIRST_PAGE": "Inicio",
+    "LAST_PAGE": "Fin",
+    "OF_LABEL": "de"
+  },
+  "Auth.form.error.invalid": "Usuario o Contraseña incorrectos.",
+  "Auth.form.error.confirmed": "El email de su cuenta no ha sido confirmado.",
+  "Auth.form.error.ratelimit": "Demasiados intentos fallidos, espere un minuto e intente nuevamente.",
+  "Auth.form.error.user.not-exist": "Esta dirección de correo no se encuentra registrada.",
+  "Auth.form.error.email.format": "Por favor intrduzca una dirección de correo valida.",
+  "Auth.form.error.code.provide": "Codigo de restablecimiento invalido o vencido."
+}

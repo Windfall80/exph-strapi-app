@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row align-items-center pt-3 pb-2 px-2 header-row">
+    <div class="col-auto me-3 cotizar-col">
+      <mat-checkbox [(ngModel)]="requested">
+        Ver ofertas solicitadas
+      </mat-checkbox>
+    </div>
+
+    <div class="col-auto me-3 cotizar-col">
+      <mat-checkbox [(ngModel)]="requested">
+        Ver ofertas sin solicitar
+      </mat-checkbox>
+    </div>
+
+    <div class="form-group col-auto ms-auto ordenar-col">
+      <label for="tipo" class="form-label me-2">Ordenar</label>
+      <mat-form-field appearance="outline" class="ffpm-0">
+        <mat-select id="order" placeholder="Más recientes" disableOptionCentering [(ngModel)]="sort" (selectionChange)="applyFilter()">
+          <mat-option value="created_at:DESC">Más recientes</mat-option>
+          <mat-option value="created_at:ASC">Mas antiguos</mat-option>
+          <mat-option value="name:ASC">Nombre A-Z</mat-option>
+          <mat-option value="name:DESC">Nombre Z-A</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div class="product-list py-3">
+    <div class="row align-items-center gx-0 px-5 mb-3 product-item" *ngFor="let row of this.dataSource.data">
+      <div class="col">
+        <app-card-oferta [offer]="row"></app-card-oferta>
+      </div>
+    </div>
+
+    <div class="row align-items-center gx-0 px-5 my-3" *ngIf="this.dataSource.data?.length == 0">
+      <div class="col">
+        <p class="add-new-msg text-center">No se encuentran ofertas relámpago que mostrar.</p>
+      </div>
+    </div>
+    <mat-paginator [length]="dataSource.count" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

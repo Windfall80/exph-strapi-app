@@ -1,0 +1,61 @@
+<mat-dialog-content class="px-5">
+  <form #form [formGroup]="quotationForm" class="cotizacion-form" (ngSubmit)="onSubmit()">
+    <div class="row gx-5 py-3">
+      <div class="form-group col-md-8">
+        <label for="name" class="form-label">Nombre de referencia para tu cotización<span class="input-req">*</span></label>
+        <mat-form-field appearance="outline">
+          <input matInput id="name" formControlName="name" placeholder="Nombre">
+            <mat-error *ngIf="quotationForm.get('name')?.hasError('required')">Ingrese un nombre de referencia para su cotizacion.</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="qty" class="form-label">Cantidad<span class="input-req">*</span></label>
+        <mat-form-field appearance="outline">
+          <input matInput type="number" id="qty" formControlName="qty" placeholder="00">
+            <mat-error *ngIf="quotationForm.get('qty')?.hasError('required')">Ingrese cantidad.</mat-error>
+            <mat-error *ngIf="quotationForm.get('qty')?.hasError('min')">Minimo una unidad.</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row py-3">
+      <div class="form-group col">
+        <label for="details" class="form-label">Añade detalles para nuestros proveedores<span class="input-req">*</span></label>
+        <mat-form-field appearance="outline">
+          <textarea matInput id="details" formControlName="details" rows="6" placeholder="Escribe aquí tus especificaciones"></textarea>
+            <mat-error *ngIf="quotationForm.get('details')?.hasError('required')">Ingrese especificaciones.</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row py-3 justify-content-center">
+      <div class="form-group col-auto">
+        <app-file-field
+          [form]="quotationForm"
+          field="file"
+          size="sm"
+          placeholder="Adjuntar un documento"
+          hint="PDF o XLS"
+          accept="application/pdf, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          direction="row"
+          itemAlign="start"
+          [showStatus]="true"
+          statusPosition="after"
+        ></app-file-field>
+      </div>
+    </div>
+
+    <div class="checks-seccion text-center">
+      <p><mat-checkbox formControlName="open">Acepto recibir cotizaciones del proveedor seleccionado.</mat-checkbox></p>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="row justify-content-center py-3">
+  <div class="col-auto">
+    <button mat-flat-button color='accent' class="btn-round" (click)="onSubmit()" [disabled]="wait">Enviar</button>
+  </div>
+  <!--<div class="col-auto">
+    <button mat-flat-button color='primary' class="btn-round" mat-dialog-close>Cancelar</button>
+  </div>-->
+</mat-dialog-actions>

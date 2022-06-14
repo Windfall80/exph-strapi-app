@@ -1,0 +1,116 @@
+<div class="container-fluid pt-5 px-md-5">
+  <!-- title bar -->
+  <div class="row align-items-end">
+    <div class="col-lg page-title">
+      <h1>Mis Ofertas</h1>
+      <p>En este apartado se encuentran todas tus ofertas aprobadas</p>
+    </div>
+    <div class="col-lg page-actions">
+      <div class="d-flex flex-column align-items-center mb-2">
+        <button mat-raised-button color="primary" class="btn-round btn-md" routerLink="create" [disabled]="tickets.length == 0">
+          <mat-icon>note_add</mat-icon>
+          Agregar una nueva Oferta
+        </button>
+        <a class="d-flex flex-column align-items-center mt-2 tickets-notif" routerLink="/proveedores/puntos">
+          <ng-container *ngIf="tickets.length > 0; else no_tickets_m">
+            <p class="mb-0" >
+              Tienes <span>{{tickets.length}} {{(tickets.length > 1)? 'ofertas':'oferta'}}</span> <ng-container *ngIf="tickets[0]?.expires_at"> {{(tickets.length > 1)? 'disponibles':'disponible'}} hasta el {{ (tickets[0].expires_at|date:'dd/MM/yyyy') }}</ng-container>
+            </p>
+            <span>¿Necesitas más?</span>
+          </ng-container>
+          <ng-template #no_tickets_m>
+            <p class="mb-0">No tienes <span>ofertas</span> disponibles</p>
+            <span>¿Necesitas más?</span>
+          </ng-template>
+        </a>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+  <!-- filter form -->
+  <div class="row search-form">
+    <div class="form-group col-auto mt-2">
+      <label for="search_name" class="form-label">&nbsp;</label>
+      <mat-form-field appearance="outline" class="search-name">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput id="search_name" placeholder="Buscar por nombre de oferta" [(ngModel)]="filters._q" (keyup)="applyFilter()">
+      </mat-form-field>
+    </div>
+    <div class="form-group col-auto mt-2">
+      <label for="tipo" class="form-label">Ordenar</label>
+      <mat-form-field appearance="outline">
+        <mat-select id="order" placeholder="Más recientes" disableOptionCentering [(ngModel)]="sort" (selectionChange)="applyFilter()">
+          <mat-option value="created_at:DESC">Más recientes</mat-option>
+          <mat-option value="created_at:ASC">Mas antiguos</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form-group col-auto mt-2">
+      <label for="main_category" class="form-label">Categoría</label>
+      <mat-form-field appearance="outline">
+        <mat-select id="main_category" placeholder="Todas" disableOptionCentering [(ngModel)]="filters.main_category" (selectionChange)="applyFilter()">
+          <mat-option [value]="null">Todas</mat-option>
+          <mat-option *ngFor="let op of categories" [value]="op.id">{{ op.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+
+  <div class="row actions-form pt-3">
+    <!-- tabs -->
+    <div class="col mt-2 mb-3">
+      <mat-button-toggle-group class="tabs" name="estatus" [(ngModel)]="filters.tab" (change)="tabChangue($event)">
+        <mat-button-toggle value="open">Activas</mat-button-toggle>
+        <mat-button-toggle value="requested">Aceptadas</mat-button-toggle>
+        <mat-button-toggle value="expired">Vencidas</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <!-- bulk actions -->
+    <div class="form-group col-auto mt-1">
+      <label for="tipo" class="form-label me-3">Acciones en lote</label>
+      <mat-form-field appearance="outline" class="me-3">
+        <mat-select id="order" placeholder="Cerrar" disableOptionCentering>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="accent" class="btn-round btn-sm" (click)="bulkAction()" [disabled]="selection.isEmpty()">Aplicar</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container-fluid pt-4 px-md-5">
+  <div class="product-list py-3" [hidden]="count === 0">
+    <div class="row align-items-center gx-0 px-xl-5 mb-3 product-item" mat-table data *ngFor="let row of dataSource.data">
+      <div class="col-auto check" [class.selected]="selection.isSelected(row.id)" (click)="selection.toggle(row.id)">
+        <mat-checkbox #check (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(row.id) : null"
+                    [checked]="selection.isSelected(row.id)"
+                    [aria-label]="checkboxLabel(row.id)">
+        </mat-checkbox>
+      </div>
+      <div class="col">
+        <app-card-offer-compact [offer]="row" (onDelete)="delete(row)"></app-card-offer-compact>
+      </div>
+    </div>
+    <mat-paginator [length]="dataSource.count" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+  <ng-container *ngIf="count === 0">
+    <div class="row justify-content-center gy-3">
+      <div class="col-lg-8">
+        <p class="add-new-msg">Aún no tienes ningúna oferta, por favor agrega por lo menos una para aparecer en nuestros catálogos</p>
+      </div>
+      <div class="w-100"></div>
+      <div class="col-auto">
+        <button mat-raised-button color="accent" class="btn-round btn-lg" routerLink="create" [disabled]="tickets.length == 0">
+          <mat-icon>note_add</mat-icon>
+          Agregar una nueva Oferta
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</div>
+

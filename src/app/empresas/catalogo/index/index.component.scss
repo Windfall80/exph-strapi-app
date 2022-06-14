@@ -1,0 +1,37 @@
+.header-row{
+  .cotizar-col{
+    mat-checkbox{
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      /* gris-muy-oscuro */
+      color: #5A6A6F;
+    }
+  }
+  .ordenar-col{
+    label{
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      /* gris-muy-oscuro */
+      color: #5A6A6F;
+    }
+  }
+}
+
+.product-list{
+  .product-item{
+    .check{
+      padding: 25px 15px;
+      /* gray-trans */
+      background: rgba(151, 188, 197, 0.4);
+      border-radius: 10px 0 0 10px;
+
+      &.selected{
+        background: var(--app-amarillo-claro);
+      }
+    }
+  }
+}
